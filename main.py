@@ -21,7 +21,7 @@ class Jogador:
         self.stats  ["XP"]= None
 
         self.items  ["Arma"] = None
-    
+
 
 class Enemy:
     def __init__(self):
@@ -37,12 +37,12 @@ class Items:
 
         self.prop   ["Nome"] = None
         self.prop   ["Tipo"] = None
-        self.prop   ["Corfirm"] = None   
+        self.prop   ["Corfirm"] = None
         self.stats  ["DEF"]  = None
         self.stats  ["MXDEF"]  = None
         self.stats  ["MXATK"]  = None
         self.stats  ["ATK"]  = None
-        self.stats  ["LVL"]  = None   
+        self.stats  ["LVL"]  = None
 
 
 j = Jogador()
@@ -70,9 +70,9 @@ if resp == "Sim":
     f.clear()
     f.typeTx("Entendi\n")
     time.sleep(1)
-   
+
 elif resp == "Nao":
-    
+
     f.typeTx("Entao já sabe como o que esta por vir")
     time.sleep(1)
     sys.exit()
@@ -105,7 +105,7 @@ while confirm == False:
 
     raca = ["Human","Elf","Giant"]
     sexo = ["Masculino", "Feminino"]
-    
+
     index = 0
 
     f.typeTx("Qual é o Nome do Receptaculo ??\n")
@@ -120,51 +120,52 @@ while confirm == False:
 
     j.prop["Raca"] = f.userInput(raca,"Essa Raca não existe\n")
 
-    f.clear()       
+    f.clear()
     f.typeTx("     Propiedade do Personagem\n")
     print("Nome: ",j.prop["Nome"] )
     print("Sexo: ",j.prop["Sexo"] )
     print("Raça: ",j.prop["Raca"])
     f.typeTx("     Seus Status\n")
-   
+
     match j.prop["Raca"]:
         case "Human":
+            
             j.stats["MXVida"] = 100
             j.stats["Vida"] = j.stats["MXVida"]
             j.stats["MXMana"] = 60
             j.stats["Mana"] = j.stats["MXMana"]
             j.stats["Nivel"]  = 0
-            
+
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
-           
+
             print("Level: {}".format(j.stats["Nivel"]) )
-        case "Elf":   
+        case "Elf":
             j.stats["MXVida"] = 80
             j.stats["Vida"] = j.stats["MXVida"]
             j.stats["MXMana"] = 120
             j.stats["Mana"] = j.stats["MXMana"]
             j.stats["Nivel"]  = 0
-            
+
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
-        
+
             print("Level: {}".format(j.stats["Nivel"]) )
-        case "Giant":    
+        case "Giant":
             j.stats["MXVida"] = 180
             j.stats["Vida"] = j.stats["MXVida"]
             j.stats["MXMana"] = 20
             j.stats["Mana"] = j.stats["MXMana"]
             j.stats["Nivel"]  = 0
-            
+
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
-            
+
             print("Level: {}".format(j.stats["Nivel"]) )
 
     f.typeTx("Confima esse Personagem???\n")
 
- 
+
     definePersonagem = False
     while definePersonagem == False:
         j.prop["Confirm"] = input("{} >>> ".format(confirma))
@@ -173,21 +174,21 @@ while confirm == False:
                 definePersonagem = True
 
         if definePersonagem == False:
-            f.typeTx("Confima esse Personagem???\n")       
-    
+            f.typeTx("Confima esse Personagem???\n")
+
     match j.prop["Confirm"]:
         case "Sim":
             confirm = True
             gameLoop = True
         case "Nao":
             clear()
-            f.typeTx("Deletando Personagem...\n")         
+            f.typeTx("Deletando Personagem...\n")
 
 while gameLoop == True:
     armas = ["Espada","Lança","Cajado","Arco"]
     confirmArma = False
     index = 0
-    
+
     f.typeTxTimer("CARREGANDO",0.5)
     f.clear()
     f.typeTx("Em PromptHeroes você escolhe apenas um tipo de arma.\nEsta arma sera a sua sua Arma pelo resto da vida deste personagem;\n")
@@ -199,13 +200,13 @@ while gameLoop == True:
 
     while confirmArma == False:
         f.typeTx("Agora Escolha Sua Arma. Escolha com cuidado!!\n")
-        
+
         j.items["Arma"] = f.userInput(armas,"Essa Arma não existe\n")
-        
+
         f.clear()
         match j.items["Arma"]:
             case "Espada":
-                
+
                 i.prop["Nome"] = "Espada do Heroi"
                 i.prop["Tipo"] = j.items["Arma"]
 
@@ -239,7 +240,7 @@ while gameLoop == True:
                 print("                                            ((((         ")
                 print(f" Nome: {i.prop["Nome"]}                        ||  \        ")
                 print(f" Tipo: {i.prop["Tipo"]}                                 ||   \       ")
-                print("                                            ||    >      ") 
+                print("                                            ||    >      ")
                 print("                                            ||   /       ")
                 print("                                            ||  /        ")
                 print("                                            ((((         ")
@@ -256,8 +257,8 @@ while gameLoop == True:
                 i.stats["LVL"]= 1
 
                 print(f' ATK: {i.stats["ATK"]}                               ◎◎          ')
-                print(f' DEF: {i.stats["DEF"]}                             ||          ') 
-                print(f' LVL: {i.stats["LVL"]}                                ||          ') 
+                print(f' DEF: {i.stats["DEF"]}                             ||          ')
+                print(f' LVL: {i.stats["LVL"]}                                ||          ')
                 print('                                   |---◎◎---|      ')
                 print(f' Nome: {i.prop["Nome"]}                 ||          ')
                 print(f' Tipo: {i.prop["Tipo"]}                          ||          ')
@@ -266,7 +267,7 @@ while gameLoop == True:
                 print('                                       ||          ')
                 print('                                       ||          ')
                 print('                                     |====|        ')
-                print('                                    |======|       ')    
+                print('                                    |======|       ')
             case "Lança":
 
                 i.prop["Nome"] = "Cajado do Heroi"
@@ -274,7 +275,7 @@ while gameLoop == True:
 
                 i.stats["MXATK"] = 20
                 i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1    
+                i.stats["LVL"]= 1
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
                 print(f" DEF: {i.stats["DEF"]}                              /**\     ")
                 print(f" LVL: {i.stats["LVL"]}                                  ||      ")
@@ -286,7 +287,7 @@ while gameLoop == True:
                 print("                                         ||      ")
                 print("                                       /====\    ")
         f.typeTx("Confirma??\n")
-        
+
         i.prop["Confirm"] = f.userInput(confirma,"Confirma??")
 
 
@@ -294,9 +295,9 @@ while gameLoop == True:
             case "Sim":
                 confirmArma = True
             case "Nao":
-                
+
                 f.clear()
-                f.typeTx("Deletando Arma...\n") 
+                f.typeTx("Deletando Arma...\n")
     f.clear()
     f.jStats()
     input("Pressione Enter para continuar...\n")
@@ -305,7 +306,3 @@ while gameLoop == True:
     f.clear()
     f.typeTx("Em uma terra destante nunca antes imaginada.")
     gameLoop = False
-    
-
-    
-    
