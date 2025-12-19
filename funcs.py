@@ -186,9 +186,10 @@ def addItemProps(nome,tipo,maxAtk,lvl):
     i.stats["ATK"]   = i.stats["MXATK"]
     i.stats["LVL"]= lvl
 def addPlayerProps(maxVida,maxMana,maxDamage,lvl):
-    j.stats["MXVida"] = maxVida
-    j.stats["Vida"] = j.stats["MXVida"]
-    j.stats["MXMana"] = maxMana
-    j.stats["Mana"] = j.stats["MXMana"]
-    j.stats["Nivel"]  = lvl
-    j.stats  ["MXDamage"] = None
+    j.stats     ["MXVida"]      = maxVida
+    j.stats     ["Vida"]        = j.stats["MXVida"]
+    j.stats     ["MXMana"]      = maxMana
+    j.stats     ["Mana"]        = j.stats["MXMana"]
+    j.stats     ["Nivel"]       = lvl
+    j.stats     ["MXDamage"]    = maxDamage
+    j.stats     ["Damage"]      = j.stats  ["MXDamage"]

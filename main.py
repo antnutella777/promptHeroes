@@ -90,7 +90,7 @@ while confirm == False:
 
     match j.prop["Raca"]:
         case "Human":
-            f.addPlayerProps(100,60,1)
+            f.addPlayerProps(100,60,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -98,7 +98,7 @@ while confirm == False:
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Elf":
 
-            f.addPlayerProps(80,120,1)
+            f.addPlayerProps(80,120,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -106,7 +106,7 @@ while confirm == False:
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Giant":
 
-            f.addPlayerProps(180,20,1)
+            f.addPlayerProps(180,20,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
