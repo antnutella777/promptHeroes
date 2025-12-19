@@ -1,53 +1,14 @@
 
 
 import math, time, os
-import sys,funcs
-class Jogador:
-    def __init__(self):
-        self.prop   = {}
-        self.stats  = {}
-        self.items  = {}
-
-        self.prop   ["Raca"] = None
-        self.prop   ["Nome"] = None
-        self.prop   ["Sexo"] = None
-        self.prop   ["Cofirm"] = None
-
-        self.stats  ["Vida"]= None
-        self.stats  ["MXVida"]= None
-        self.stats  ["Mana"]= None
-        self.stats  ["MXMana"]= None
-        self.stats  ["Nivel"]= None
-        self.stats  ["XP"]= None
-
-        self.items  ["Arma"] = None
+import sys,Funcs,Objects
 
 
-class Enemy:
-    def __init__(self):
-        self.prop   = {}
-        self.stats  = {}
-
-
-
-class Items:
-    def __init__(self):
-        self.prop   = {}
-        self.stats  = {}
-
-        self.prop   ["Nome"] = None
-        self.prop   ["Tipo"] = None
-        self.prop   ["Corfirm"] = None
-        self.stats  ["DEF"]  = None
-        self.stats  ["MXDEF"]  = None
-        self.stats  ["MXATK"]  = None
-        self.stats  ["ATK"]  = None
-        self.stats  ["LVL"]  = None
-
-
-j = Jogador()
-i =  Items()
+j = Objects.Jogador()
+i = Objects.Items()
+e = Objects.Enemy()
 f = funcs
+
 confirm = False
 gameLoop = False
 confirma = ["Sim","Nao"]
@@ -129,34 +90,23 @@ while confirm == False:
 
     match j.prop["Raca"]:
         case "Human":
-            
-            j.stats["MXVida"] = 100
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 60
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
+            f.addPlayerProps(100,60,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
 
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Elf":
-            j.stats["MXVida"] = 80
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 120
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
+
+            f.addPlayerProps(80,120,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
 
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Giant":
-            j.stats["MXVida"] = 180
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 20
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
+
+            f.addPlayerProps(180,20,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -165,16 +115,8 @@ while confirm == False:
 
     f.typeTx("Confima esse Personagem???\n")
 
+    j.prop["Confirm"] = f.userInput(confirma,"Confima esse Personagem???\n")
 
-    definePersonagem = False
-    while definePersonagem == False:
-        j.prop["Confirm"] = input("{} >>> ".format(confirma))
-        for index in range(len(confirma)):
-            if confirma[index] == j.prop["Confirm"]:
-                definePersonagem = True
-
-        if definePersonagem == False:
-            f.typeTx("Confima esse Personagem???\n")
 
     match j.prop["Confirm"]:
         case "Sim":
@@ -206,13 +148,8 @@ while gameLoop == True:
         f.clear()
         match j.items["Arma"]:
             case "Espada":
+                f.addItemProps("Espada do Heroi",j.items["Armas"],15,1)
 
-                i.prop["Nome"] = "Espada do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 15
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
 
                 print(f" ATK:  {i.stats["ATK"]}                                   ||          ")
                 print(f" DEF:  0                                   ||||         ")
@@ -227,12 +164,7 @@ while gameLoop == True:
                 print("                                           ====         ")
             case "Arco":
 
-                i.prop["Nome"] = "Arco do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 5
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
+                f.addItemProps("Arco do Heroi",j.items["Armas"],5,1)
 
                 print(f" ATK: {i.stats["ATK"]}                                        (         ")
                 print(f" DEF: {i.stats["DEF"]}                                    ((         ")
@@ -249,12 +181,7 @@ while gameLoop == True:
                 print("                                               (          ")
             case "Cajado":
 
-                i.prop["Nome"] = "Cajado do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 10
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
+                f.addItemProps("Cajado do Heroi",j.items["Armas"],10,1)
 
                 print(f' ATK: {i.stats["ATK"]}                               ◎◎          ')
                 print(f' DEF: {i.stats["DEF"]}                             ||          ')
@@ -270,12 +197,8 @@ while gameLoop == True:
                 print('                                    |======|       ')
             case "Lança":
 
-                i.prop["Nome"] = "Cajado do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
+                f.addItemProps("Lança do Heroi",j.items["Armas"],20,1)
 
-                i.stats["MXATK"] = 20
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
                 print(f" DEF: {i.stats["DEF"]}                              /**\     ")
                 print(f" LVL: {i.stats["LVL"]}                                  ||      ")
