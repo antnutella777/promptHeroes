@@ -1,5 +1,8 @@
-import os,time
+import os,time,main,Objects
 
+
+j = Objects.Jogador()
+i = Objects.Items()
 def typeTx(texto):
     for letra in texto:
         print(letra, end="", flush=True)

@@ -3,7 +3,6 @@
 import math, time, os
 import sys,Funcs,Objects
 
-
 j = Objects.Jogador()
 i = Objects.Items()
 e = Objects.Enemy()
@@ -146,7 +145,7 @@ while gameLoop == True:
         f.clear()
         match j.items["Arma"]:
             case "Espada":
-                f.addItemProps("Espada do Heroi",j.items["Armas"],15,1)
+                f.addItemProps("Espada do Heroi",j.items["Arma"],15,1)
 
 
                 print(f" ATK:  {i.stats["ATK"]}                                   ||          ")
@@ -162,7 +161,7 @@ while gameLoop == True:
                 print("                                           ====         ")
             case "Arco":
 
-                f.addItemProps("Arco do Heroi",j.items["Armas"],5,1)
+                f.addItemProps("Arco do Heroi",j.items["Arma"],5,1)
 
                 print(f" ATK: {i.stats["ATK"]}                                        (         ")
                 print(f" DEF: {i.stats["DEF"]}                                    ((         ")
@@ -179,7 +178,7 @@ while gameLoop == True:
                 print("                                               (          ")
             case "Cajado":
 
-                f.addItemProps("Cajado do Heroi",j.items["Armas"],10,1)
+                f.addItemProps("Cajado do Heroi",j.items["Arma"],10,1)
 
                 print(f' ATK: {i.stats["ATK"]}                               ◎◎          ')
                 print(f' DEF: {i.stats["DEF"]}                             ||          ')
@@ -195,7 +194,7 @@ while gameLoop == True:
                 print('                                    |======|       ')
             case "Lança":
 
-                f.addItemProps("Lança do Heroi",j.items["Armas"],20,1)
+                f.addItemProps("Lança do Heroi",j.items["Arma"],20,1)
 
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
                 print(f" DEF: {i.stats["DEF"]}                              /**\     ")
