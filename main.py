@@ -7,13 +7,11 @@ import sys,Funcs,Objects
 j = Objects.Jogador()
 i = Objects.Items()
 e = Objects.Enemy()
-f = funcs
+f = Funcs
 
 confirm = False
 gameLoop = False
 confirma = ["Sim","Nao"]
-
-
 
 
 f.clear()

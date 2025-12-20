@@ -1,4 +1,4 @@
-import os,time,funcs
+import os,time
 
 def typeTx(texto):
     for letra in texto:

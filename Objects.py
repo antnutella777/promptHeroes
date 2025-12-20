@@ -34,7 +34,7 @@ class Jogador:
         self.items  ["Colar"]       = None
 
     def atack():
-        damage = self.stats["Damage"] +
+        damage = self.stats["Damage"] 
 
 class Enemy:
     def __init__(self):
