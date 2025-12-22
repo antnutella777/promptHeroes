@@ -11,7 +11,7 @@ d = dictionary
 
 
 confirm = False
-gameLoop = False
+armaLoop = False
 confirma = ["Sim","Nao"]
 
 def batlleEvent(obj,enemyLife,playerLife):
@@ -138,7 +138,7 @@ while confirm == False:
             f.clear()
             f.typeTx("Deletando Personagem...\n")
 
-while gameLoop == True:
+while armaLoop == True:
     armas = ["Espada","Lança","Cajado","Arco"]
     confirmArma = False
     index = 0
@@ -225,19 +225,20 @@ while gameLoop == True:
 
         i.prop["Confirm"] = f.userInput(confirma,"Confirma??")
 
+        j.stats["MXDamage"] += i.stats["MXDamage"]
 
         match i.prop["Confirm"]:
             case "Sim":
                 confirmArma = True
             case "Nao":
-
                 f.clear()
                 f.typeTx("Deletando Arma...\n")
     f.clear()
+    f.typeTx("      Seu receptaculo:\n")
     f.jStats()
     input("Pressione Enter para continuar...\n")
     f.clear()
     f.logo()
     f.clear()
     f.typeTx("Em uma terra destante nunca antes imaginada.")
-    gameLoop = False
+    armaLoop = False

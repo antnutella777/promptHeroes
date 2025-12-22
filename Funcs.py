@@ -187,3 +187,23 @@ def fakeLoad(timer,txt):
     for index in range(101):
         print( txt + "{}%" .format(index))
         time.sleep(timer)
+def newEneny(obj,E,lvl):
+    obj.prop["Nome"]    = E["Nome"]
+    obj.prop["Raça"]    = E["Raça"]
+    obj.prop["Vida"]    = E["Vida"]
+    obj.prop["Damage"]  = E["dano"]
+    obj.prop["LVL"]     = lvl
+
+    obj.prop["Damage"] = obj.prop["Damage"] * lvl
+def objStats(obj):
+    typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
+    print("Nome: ",obj.prop["Nome"] )
+    print("Raça: ",obj.prop["Raça"])
+
+    typeTx("     Seus Status\n")
+
+    print("Vida: {}".format(obj.stats["Vida"]))
+    print("Level: {}".format(obj.stats["LVL"]) )
+    print("Mana: {}".format(obj.stats["Damage"]))
+
+    
