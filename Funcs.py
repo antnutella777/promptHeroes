@@ -1,8 +1,7 @@
-import os,time,main,Objects
+import os,time,Objects
 
 
-j = Objects.Jogador()
-i = Objects.Items()
+
 def typeTx(texto):
     for letra in texto:
         print(letra, end="", flush=True)
@@ -168,31 +167,23 @@ def userInput(opt,falseTxt):
         if loop == False:
             typeTx(falseTxt + "\n")
     return var
-def batlleEvent(enemyLife,playerLife):
-    battleList = ["Atacar","Defender","Item","Fujir"]
-    false = "Opção Invalida"
-    while (enemyLife > 0 and playerLife > 0) :
-        match userInput(battleList,false):
-            case "Atacar":
-                enemyLife -= 10
-            case "Defender":
-                typeTx("Estou Defendendo")
-            case "Item":
-                typeTx("Usando item")
-            case "Fujir":
-               break
-def addItemProps(nome,tipo,maxAtk,lvl):
-    i.prop["Nome"] = nome
-    i.prop["Tipo"] = tipo
 
-    i.stats["MXATK"] = maxAtk
-    i.stats["ATK"]   = i.stats["MXATK"]
-    i.stats["LVL"]= lvl
-def addPlayerProps(maxVida,maxMana,maxDamage,lvl):
-    j.stats     ["MXVida"]      = maxVida
-    j.stats     ["Vida"]        = j.stats["MXVida"]
-    j.stats     ["MXMana"]      = maxMana
-    j.stats     ["Mana"]        = j.stats["MXMana"]
-    j.stats     ["Nivel"]       = lvl
-    j.stats     ["MXDamage"]    = maxDamage
-    j.stats     ["Damage"]      = j.stats  ["MXDamage"]
+def addItemProps(obj,nome,tipo,maxAtk,lvl):
+    obj.prop["Nome"] = nome
+    obj.prop["Tipo"] = tipo
+
+    obj.stats["MXATK"] = maxAtk
+    obj.stats["ATK"]   = obj.stats["MXATK"]
+    obj.stats["LVL"]   = lvl
+def addPlayerProps(obj,maxVida,maxMana,maxDamage,lvl):
+    obj.stats     ["MXVida"]      = maxVida
+    obj.stats     ["Vida"]        = obj.stats["MXVida"]
+    obj.stats     ["MXMana"]      = maxMana
+    obj.stats     ["Mana"]        = obj.stats["MXMana"]
+    obj.stats     ["Nivel"]       = lvl
+    obj.stats     ["MXDamage"]    = maxDamage
+    obj.stats     ["Damage"]      = obj.stats  ["MXDamage"]
+def fakeLoad(timer,txt):
+    for index in range(101):
+        print( txt + "{}%" .format(index))
+        time.sleep(timer)

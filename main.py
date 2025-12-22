@@ -1,17 +1,32 @@
 
 
-import math, time, os
-import sys,Funcs,Objects
+import sys,Funcs,Objects, math,time,os,dictionary
 
 j = Objects.Jogador()
 i = Objects.Items()
 e = Objects.Enemy()
 f = Funcs
+d = dictionary
+
+
 
 confirm = False
 gameLoop = False
 confirma = ["Sim","Nao"]
 
+def batlleEvent(obj,enemyLife,playerLife):
+    battleList = ["Atacar","Defender","Item","Fujir"]
+    false = "Opção Invalida"
+    while (enemyLife > 0 and playerLife > 0) :
+        match f.userInput(battleList,false):
+            case "Atacar":
+                j.atack()
+            case "Defender":
+                f.typeTx("Estou Defendendo")
+            case "Item":
+                f.typeTx("Usando item")
+            case "Fujir":
+               break
 
 f.clear()
 
@@ -46,11 +61,11 @@ f.typeTx("Mais acho que podemos começar do mesmo jeito")
 input("[Enter]>>> ")
 f.clear()
 
-f.typeTxTimer("Carregando Mundo\n",0.3)
-index = 0
-for index in range(101):
-   print("Carregando Criação de personagem {}%" .format(index))
-   time.sleep(0.05)
+f.fakeLoad(0.05,"Carregando Mundo \n")
+
+
+f.fakeLoad(0.05,"Carregando Criação de personagem ")
+
 time.sleep(1)
 f.clear()
 f.typeTx("Prontinho")
@@ -87,7 +102,7 @@ while confirm == False:
 
     match j.prop["Raca"]:
         case "Human":
-            f.addPlayerProps(100,60,1,1)
+            f.addPlayerProps(j,100,60,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -95,7 +110,7 @@ while confirm == False:
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Elf":
 
-            f.addPlayerProps(80,120,1,1)
+            f.addPlayerProps(j,80,120,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -103,7 +118,7 @@ while confirm == False:
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Giant":
 
-            f.addPlayerProps(180,20,1,1)
+            f.addPlayerProps(j,180,20,1,1)
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -120,7 +135,7 @@ while confirm == False:
             confirm = True
             gameLoop = True
         case "Nao":
-            clear()
+            f.clear()
             f.typeTx("Deletando Personagem...\n")
 
 while gameLoop == True:
@@ -145,7 +160,7 @@ while gameLoop == True:
         f.clear()
         match j.items["Arma"]:
             case "Espada":
-                f.addItemProps("Espada do Heroi",j.items["Arma"],15,1)
+                f.addItemProps(i,"Espada do Heroi",j.items["Arma"],15,1)
 
 
                 print(f" ATK:  {i.stats["ATK"]}                                   ||          ")
@@ -161,7 +176,7 @@ while gameLoop == True:
                 print("                                           ====         ")
             case "Arco":
 
-                f.addItemProps("Arco do Heroi",j.items["Arma"],5,1)
+                f.addItemProps(i,"Arco do Heroi",j.items["Arma"],5,1)
 
                 print(f" ATK: {i.stats["ATK"]}                                        (         ")
                 print(f" DEF: {i.stats["DEF"]}                                    ((         ")
@@ -178,7 +193,7 @@ while gameLoop == True:
                 print("                                               (          ")
             case "Cajado":
 
-                f.addItemProps("Cajado do Heroi",j.items["Arma"],10,1)
+                f.addItemProps(i,"Cajado do Heroi",j.items["Arma"],10,1)
 
                 print(f' ATK: {i.stats["ATK"]}                               ◎◎          ')
                 print(f' DEF: {i.stats["DEF"]}                             ||          ')
@@ -194,7 +209,7 @@ while gameLoop == True:
                 print('                                    |======|       ')
             case "Lança":
 
-                f.addItemProps("Lança do Heroi",j.items["Arma"],20,1)
+                f.addItemProps(i,"Lança do Heroi",j.items["Arma"],20,1)
 
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
                 print(f" DEF: {i.stats["DEF"]}                              /**\     ")

@@ -1,3 +1,7 @@
+import random, math, Funcs
+
+f = Funcs
+
 class Jogador:
     def __init__(self):
         self.prop   = {}
@@ -24,6 +28,7 @@ class Jogador:
         self.stats  ["XP"]= None
         self.stats  ["MXDamage"] = None
         self.stats  ["Damage"] = None
+        self.stats  ["critPercent"] = None
 
         self.items  ["Arma"]        = None
         self.items  ["Capacete"]    = None
@@ -33,8 +38,23 @@ class Jogador:
         self.items  ["Anel"]        = None
         self.items  ["Colar"]       = None
 
-    def atack():
-        damage = self.stats["Damage"] 
+    def atack(self,obj):
+        critChance = random.randint(0,100)
+        dano = 0
+        chance = ""
+
+        match critChance:
+            case x if x <=20:
+                dano = 0
+                chance = "Voce Errou"
+            case x if x <= 84:
+                dano = self.stats["Damage"] 
+                chance = "Acertou {} !!".format(dano)
+            case _:
+                dano = self.stats["Damage"]  + (self.stats["Damage"] * (self.stats["critPercent"] / 100))    
+                chance = "Critico {} !!".format(dano)
+        obj.stats["Vida"] -= dano
+        f.typeTx(chance)
 
 class Enemy:
     def __init__(self):
@@ -46,7 +66,24 @@ class Enemy:
         self.stats  ["Vida"]    = None
         self.stats  ["Damage"]  = None
         self.stats  ["LVL"]     = None
+    
+    def atack(self,obj):
+        critChance = random.randint(0,100)
+        dano = 0
+        chance = ""
 
+        match critChance:
+            case x if x <=20:
+                dano = 0
+                chance = "Voce Errou"
+            case x if x <= 84:
+                dano = self.stats["Damage"] 
+                chance = "Acertou {} !!".format(dano)
+            case _:
+                dano = self.stats["Damage"]  + (self.stats["Damage"] * (critPercent / 100))    
+                chance = "Critico {} !!".format(dano)
+        obj.stats["Vida"] -= dano
+        f.typeTx(chance)
 
 
 class Items:
