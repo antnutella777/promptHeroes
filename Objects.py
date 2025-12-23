@@ -19,12 +19,14 @@ class Jogador:
         self.prop   ["Nome"] = None
         self.prop   ["Sexo"] = None
         self.prop   ["Cofirm"] = None
+        self.prop   ["cash"] = 0
 
         self.stats  ["Vida"]= None
         self.stats  ["MXVida"]= None
         self.stats  ["Mana"]= None
         self.stats  ["MXMana"]= None
         self.stats  ["Nivel"]= None
+        self.stats  ["mxXP"]= None
         self.stats  ["XP"]= None
         self.stats  ["MXDamage"] = None
         self.stats  ["Damage"] = None

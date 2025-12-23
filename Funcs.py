@@ -6,6 +6,7 @@ def typeTx(texto):
     for letra in texto:
         print(letra, end="", flush=True)
         time.sleep(0.05)
+    texto += "\n"
 def typeTxTimer(texto,timer):
     for letra in texto:
         print(letra, end="", flush=True)
@@ -158,7 +159,7 @@ def logo():
 def userInput(opt,falseTxt):
     loop = False
     while loop == False:
-        var = input("\n{} >>> ".format(opt))
+        var = input("\n>>> ")
         for index in range(len(opt)):
             if opt[index] == var:
                 loop = True
