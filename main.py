@@ -1,16 +1,16 @@
 
 
-import sys,Funcs,Objects, math,time,os,dictionary, random
+import sys,Funcs,Objects, math,time,os,enemyData,random,itemsData
 
 j = Objects.Jogador()
 i = Objects.Items()
 e = Objects.Enemy()
 f = Funcs
-d = dictionary
+ed = enemyData
+idd = itemsData
+DEBUG = True
 
-DEBUG = False
-
-gameStage = "Intro" 
+gameStage = "Intro"
 
 confirm = False
 armaLoop = False
@@ -18,20 +18,20 @@ confirma = ["Sim","Nao"]
 
 gameLoopMain = True
 
-def batlleEvent():
-    
+def batlleEvent(lvlBattle):
+
     f.fakeLoad(0.01,"Carregando Batalha ")
 
-    enemys = [d.Batedor,d.Gigante,d.Guarda]
+    enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
 
     enemyChoose = random.randint(0,2)
 
-    obj = f.newEneny(e,enemys[enemyChoose],1)
-    
+    obj = f.newEneny(e,enemys[enemyChoose],lvlBattle)
+
     f.clear()
-    
+
     f.typeTx(" Um {} bloqueou seu caminho!!!".format(obj.prop["Nome"]))
-    
+
     battleList = ["atacar","defender","item","fujir","info","status","menu"]
     false = "Opção Invalida"
     while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
@@ -50,8 +50,8 @@ def batlleEvent():
                     break
                 else:
                     f.typeTx("{} te bloqueou\n".format(obj.prop["Nome"]))
-            case "info": 
-                f.objStats(obj) 
+            case "info":
+                f.objStats(obj)
             case "status":
                 f.slaveStats(j)
         if choose != "info" and choose != "status" and obj.stats["Vida"] > 0:
@@ -59,7 +59,7 @@ def batlleEvent():
         if obj.stats["Vida"] < 0:
             f.typeTx("Você Venceu!!!!\n")
         elif j.stats["Vida"] < 0:
-            f.typeTx("Voce Morreu")                         
+            f.typeTx("Voce Morreu")
 
 def batlleTutorialEvent():
     f.typeTx("Primeiro vamos aprender o basico de uma batalha, observe:")
@@ -67,14 +67,14 @@ def batlleTutorialEvent():
     f.clear()
     f.fakeLoad(0.01,"Carregando Batalha ")
 
-    enemys = [d.Batedor,d.Gigante,d.Guarda]
+    enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
 
     enemyChoose = random.randint(0,2)
 
     obj = f.newEneny(e,enemys[enemyChoose],1)
-    
+
     f.clear()
-    
+
     f.typeTx(" Um {} bloqueou seu caminho!!!\n".format(obj.prop["Nome"]))
 
     f.typeTx("Um {} está a sua frente. e não perece ser amigavel. ")
@@ -100,7 +100,7 @@ def batlleTutorialEvent():
                 f.typeTx("Usando item\n")
             case "fujir":
                 fulgaChance = random.randint(0,100)
-                
+
                 f.typeTx("Ao fujir você saira da batalha, porém o inimigo pode te bloquear novamente\n")
 
                 if fulgaChance > 79:
@@ -108,8 +108,8 @@ def batlleTutorialEvent():
                     break
                 else:
                     f.typeTx("{} te bloqueou\n".format(obj.prop["Nome"]))
-            case "info": 
-                f.objStats(obj) 
+            case "info":
+                f.objStats(obj)
             case "status":
                 f.slaveStats(j)
                 f.typeTx("Aqui você pode ver todas a informaçoes seu pesonagem. Escolha outra opção\n")
@@ -125,7 +125,7 @@ def batlleTutorialEvent():
             f.typeTx("Voce Morreu")
 f.clear()
 if DEBUG == False:
-    while gameLoopMain == True:    
+    while gameLoopMain == True:
         match gameStage:
             case "Intro":
                 f.typeTx("Olá")
@@ -172,12 +172,12 @@ if DEBUG == False:
                 f.typeTx("Voce, vai precisar de um receptculo para este mundo para este mundo")
                 gameStage = "Criação"
                 input("[Enter]>>> ")
-                
+
                 f.clear()
 
-                
+
                 confirm = False
-            case "Criação":    
+            case "Criação":
                 while confirm == False:
                     raca = ["Human","Elf","Giant"]
                     sexo = ["Masculino", "Feminino"]
@@ -240,8 +240,8 @@ if DEBUG == False:
                         case "Nao":
                             f.clear()
                             f.typeTx("Deletando Personagem...\n")
-                    gameStage = "Seleção de Arma" 
-                    armaLoop = True       
+                    gameStage = "Seleção de Arma"
+                    armaLoop = True
             case "Seleção de Arma":
                 while armaLoop == True:
                     armas = ["Espada","Lança","Cajado","Arco"]
@@ -337,11 +337,11 @@ if DEBUG == False:
                                 confirmArma = True
                             case "Nao":
                                 f.clear()
-            
+
                                 f.typeTx("Deletando Arma...\n")
-                        armaLoop = False          
-                    gameStage = "Conclução"        
-            case "Conclusão" :                    
+                        armaLoop = False
+                    gameStage = "Conclução"
+            case "Conclusão" :
                 f.clear()
                 f.typeTx("      Seu receptaculo:\n")
                 f.jStats()
@@ -350,11 +350,10 @@ if DEBUG == False:
                 f.logo()
                 f.clear()
                 f.typeTx("Em uma terra destante nunca antes imaginada.")
-         
 else:
-   
+
     f.addPlayerSlave(j)
-    
+
     match j.prop["Raca"]:
         case "Human": f.addPlayerProps(j,100,60,1,1)
         case "Elf":   f.addPlayerProps(j,80,120,1,1)
@@ -367,9 +366,7 @@ else:
 
     j.stats["Damage"] += i.stats["ATK"]
 
+    j.addItems(idd.battleItems["Elixir"])
 
-    
-    batlleEvent()
 
-   
 

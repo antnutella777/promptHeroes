@@ -192,7 +192,7 @@ def newEneny(obj,E,lvl):
     obj.prop["Raça"]        = E["Raça"]
     obj.stats["Vida"]       = E["Vida"] * (lvl / 2)
     obj.stats["Damage"]     = math.floor(E["dano"] * (lvl / 2))
-    obj.stats  ["critPercent"] = 10 * lvl 
+    obj.stats  ["critPercent"] = 10 * lvl
     obj.stats["LVL"]        = lvl
     return obj
 
@@ -227,3 +227,11 @@ def slaveStats(obj):
     print("Level:   {}".format(obj.stats["Nivel"]))
     print("Arma:    {}".format(obj.items["Arma"]))
     print("Damage:  {}".format(obj.stats["Damage"]))
+
+
+
+
+
+
+
+    
