@@ -46,13 +46,13 @@ class Jogador:
         match critChance:
             case x if x <=20:
                 dano = 0
-                chance = "Voce Errou"
+                chance = "Voce Errou\n"
             case x if x <= 84:
                 dano = self.stats["Damage"] 
-                chance = "Acertou {} !!".format(dano)
+                chance = "Voce tirou {} de dano!!\n".format(dano)
             case _:
                 dano = self.stats["Damage"]  + (self.stats["Damage"] * (self.stats["critPercent"] / 100))    
-                chance = "Critico {} !!".format(dano)
+                chance = "Critico {} !!\n".format(dano)
         obj.stats["Vida"] -= dano
         f.typeTx(chance)
 
@@ -66,6 +66,7 @@ class Enemy:
         self.stats  ["Vida"]    = None
         self.stats  ["Damage"]  = None
         self.stats  ["LVL"]     = None
+        self.stats  ["critPercent"] = None
     
     def atack(self,obj):
         critChance = random.randint(0,100)
@@ -75,13 +76,13 @@ class Enemy:
         match critChance:
             case x if x <=20:
                 dano = 0
-                chance = "Voce Errou"
+                chance = self.prop["Nome"]  + " Errou\n"
             case x if x <= 84:
                 dano = self.stats["Damage"] 
-                chance = "Acertou {} !!".format(dano)
+                chance = self.prop["Nome"] + " tirou {} do seu HP !!\n".format(dano)
             case _:
-                dano = self.stats["Damage"]  + (self.stats["Damage"] * (critPercent / 100))    
-                chance = "Critico {} !!".format(dano)
+                dano = self.stats["Damage"]  + (self.stats["Damage"] * (self.stats  ["critPercent"] / 100))    
+                chance = self.prop["Nome"] + " te deu um critico {} !!\n".format(dano)
         obj.stats["Vida"] -= dano
         f.typeTx(chance)
 

@@ -1,4 +1,4 @@
-import os,time,Objects
+import os,time,math
 
 
 
@@ -12,17 +12,15 @@ def typeTxTimer(texto,timer):
         time.sleep(timer)
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
-def jStats():
+def jStats(obj):
     print("     Propiedade do Personagem\n")
-    print("Nome: ",j.prop["Nome"] )
-    print("Sexo: ",j.prop["Sexo"] )
+    print("Nome: ",obj.prop["Nome"] )
+    print("Sexo: ",obj.prop["Sexo"] )
     print("Raça: ",j.prop["Raca"])
     print("     Seus Status\n")
 
     match j.prop["Raca"]:
         case "Human":
-
-
 
             j.stats["MXVida"] = 100
             j.stats["Vida"] = j.stats["MXVida"]
@@ -160,7 +158,7 @@ def logo():
 def userInput(opt,falseTxt):
     loop = False
     while loop == False:
-        var = input("{} >>> ".format(opt))
+        var = input("\n{} >>> ".format(opt))
         for index in range(len(opt)):
             if opt[index] == var:
                 loop = True
@@ -187,23 +185,44 @@ def fakeLoad(timer,txt):
     for index in range(101):
         print( txt + "{}%" .format(index))
         time.sleep(timer)
-def newEneny(obj,E,lvl):
-    obj.prop["Nome"]    = E["Nome"]
-    obj.prop["Raça"]    = E["Raça"]
-    obj.prop["Vida"]    = E["Vida"]
-    obj.prop["Damage"]  = E["dano"]
-    obj.prop["LVL"]     = lvl
 
-    obj.prop["Damage"] = obj.prop["Damage"] * lvl
+def newEneny(obj,E,lvl):
+    obj.prop["Nome"]        = E["Nome"]
+    obj.prop["Raça"]        = E["Raça"]
+    obj.stats["Vida"]       = E["Vida"] * (lvl / 2)
+    obj.stats["Damage"]     = math.floor(E["dano"] * (lvl / 2))
+    obj.stats  ["critPercent"] = 10 * lvl 
+    obj.stats["LVL"]        = lvl
+    return obj
+
 def objStats(obj):
+    clear()
     typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
     print("Nome: ",obj.prop["Nome"] )
     print("Raça: ",obj.prop["Raça"])
 
     typeTx("     Seus Status\n")
 
-    print("Vida: {}".format(obj.stats["Vida"]))
-    print("Level: {}".format(obj.stats["LVL"]) )
-    print("Mana: {}".format(obj.stats["Damage"]))
+    print("Vida:    {}".format(obj.stats["Vida"]))
+    print("Level:   {}".format(obj.stats["LVL"]) )
+    print("Damage:  {}".format(obj.stats["Damage"]))
+def addPlayerSlave(obj):
+    obj.prop["Raca"] = "Human"
+    obj.prop["Nome"] = "Andre"
+    obj.prop["Sexo"] = "Masculino"
 
-    
+    obj.stats["critPercent"] = 20
+
+    obj.items["Arma"] = "Espada"
+def slaveStats(obj):
+    clear()
+    typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
+    print("Nome: ",obj.prop["Nome"] )
+    print("Raça: ",obj.prop["Raca"])
+
+    typeTx("     Seus Status\n")
+
+    print("Vida:    {}".format(obj.stats["Vida"]))
+    print("Level:   {}".format(obj.stats["Nivel"]))
+    print("Arma:    {}".format(obj.items["Arma"]))
+    print("Damage:  {}".format(obj.stats["Damage"]))
