@@ -1,6 +1,4 @@
-import os,time,math
-
-
+import os,time,math,random
 
 def typeTx(texto):
     for letra in texto:
@@ -166,7 +164,6 @@ def userInput(opt,falseTxt):
         if loop == False:
             typeTx(falseTxt + "\n")
     return var
-
 def addItemProps(obj,nome,tipo,maxAtk,lvl):
     obj.prop["Nome"] = nome
     obj.prop["Tipo"] = tipo
@@ -186,7 +183,6 @@ def fakeLoad(timer,txt):
     for index in range(101):
         print( txt + "{}%" .format(index))
         time.sleep(timer)
-
 def newEneny(obj,E,lvl):
     obj.prop["Nome"]        = E["Nome"]
     obj.prop["Raça"]        = E["Raça"]
@@ -195,7 +191,6 @@ def newEneny(obj,E,lvl):
     obj.stats  ["critPercent"] = 10 * lvl
     obj.stats["LVL"]        = lvl
     return obj
-
 def objStats(obj):
     clear()
     typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
@@ -227,10 +222,53 @@ def slaveStats(obj):
     print("Level:   {}".format(obj.stats["Nivel"]))
     print("Arma:    {}".format(obj.items["Arma"]))
     print("Damage:  {}".format(obj.stats["Damage"]))
+def startBattle(enemyList,objEnemy,lvl):
+    fakeLoad(0.01,"Carregando Batalha ")
 
+    enemyChoose = random.randint(0,2)
 
+    obj = newEneny(objEnemy,enemyList[enemyChoose],lvl)
 
+    clear()
+    return obj
+def playerTurn(enemy,player):   
 
+    battleList = ["atacar","defender","item","fujir","info","status","menu"]
+    false = "Opção Invalida"
+    
+    choose = userInput(battleList,false)
+    match choose:
+        case "atacar":
+            player.atack(enemy)
+        case "defender":
+            typeTx("Estou Defendendo\n")
+        case "item":
+            typeTx("Usando item\n")
+        case "fujir":
+            fulgaChance = random.randint(0,100)
+            if fulgaChance > 79:
+                typeTx("Você fugiu\n")
+            else:
+                typeTx("{} te bloqueou\n".format(enemy.prop["Nome"]))
+        case "info":
+            objStats(enemy)
+        case "status":
+            slaveStats(player)
+    return choose
+def checkBattleEnd(choose,enemy,player):
+    if choose != "info" and choose != "status" and enemy.stats["Vida"] > 0:
+            enemy.atack(player)
+    if enemy.stats["Vida"] < 0:
+        typeTx("Você Venceu!!!!\n")
+    elif player.stats["Vida"] < 0:
+        typeTx("Voce Morreu")
+def batlleEvent(lvl,ed,enemyObj,j):
+    enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
+    obj = startBattle(enemys,enemyObj,lvl)
+    typeTx(" Um {} bloqueou seu caminho!!!".format(obj.prop["Nome"]))
+    while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
+        choose = playerTurn(obj,j)
+        checkBattleEnd(choose,obj,j)     
 
 
 

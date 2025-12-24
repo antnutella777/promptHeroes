@@ -17,112 +17,7 @@ armaLoop = False
 confirma = ["Sim","Nao"]
 
 gameLoopMain = True
-
-def batlleEvent(lvlBattle):
-
-    f.fakeLoad(0.01,"Carregando Batalha ")
-
-    enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
-
-    enemyChoose = random.randint(0,2)
-
-    obj = f.newEneny(e,enemys[enemyChoose],lvlBattle)
-
-    f.clear()
-
-    f.typeTx(" Um {} bloqueou seu caminho!!!".format(obj.prop["Nome"]))
-
-    battleList = ["atacar","defender","item","fujir","info","status","menu"]
-    false = "Opção Invalida"
-    while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
-        choose = f.userInput(battleList,false)
-        match choose:
-            case "atacar":
-                j.atack(obj)
-            case "defender":
-                f.typeTx("Estou Defendendo\n")
-            case "item":
-                f.typeTx("Usando item\n")
-            case "fujir":
-                fulgaChance = random.randint(0,100)
-                if fulgaChance > 79:
-                    f.typeTx("Você fugiu\n")
-                    break
-                else:
-                    f.typeTx("{} te bloqueou\n".format(obj.prop["Nome"]))
-            case "info":
-                f.objStats(obj)
-            case "status":
-                f.slaveStats(j)
-        if choose != "info" and choose != "status" and obj.stats["Vida"] > 0:
-            obj.atack(j)
-        if obj.stats["Vida"] < 0:
-            f.typeTx("Você Venceu!!!!\n")
-        elif j.stats["Vida"] < 0:
-            f.typeTx("Voce Morreu")
-
-def batlleTutorialEvent():
-    f.typeTx("Primeiro vamos aprender o basico de uma batalha, observe:")
-    time.sleep(1)
-    f.clear()
-    f.fakeLoad(0.01,"Carregando Batalha ")
-
-    enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
-
-    enemyChoose = random.randint(0,2)
-
-    obj = f.newEneny(e,enemys[enemyChoose],1)
-
-    f.clear()
-
-    f.typeTx(" Um {} bloqueou seu caminho!!!\n".format(obj.prop["Nome"]))
-
-    f.typeTx("Um {} está a sua frente. e não perece ser amigavel. ")
-    time.sleep(1)
-    f.typeTx("Nesse modo você tem duas opçoes iniciais:")
-    time.sleep(1)
-    f.typeTx(" atacar ")
-    time.sleep(1)
-    f.typeTx("ou fujir\n ")
-    battleList = ["atacar","defender","item","fujir","info","status","menu"]
-    false = "Opção Invalida"
-    while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
-        choose = f.userInput(battleList,false)
-        match choose:
-            case "atacar":
-                f.typeTx("Ao atacar Voce reduz o HP do um inimigo. ")
-                time.sleep(1)
-                f.typeTx("Você pode ver suas infos do inimigo digitando o comando --> info\n")
-                j.atack(obj)
-            case "defender":
-                f.typeTx("Estou Defendendo\n")
-            case "item":
-                f.typeTx("Usando item\n")
-            case "fujir":
-                fulgaChance = random.randint(0,100)
-
-                f.typeTx("Ao fujir você saira da batalha, porém o inimigo pode te bloquear novamente\n")
-
-                if fulgaChance > 79:
-                    f.typeTx("Você fugiu\n")
-                    break
-                else:
-                    f.typeTx("{} te bloqueou\n".format(obj.prop["Nome"]))
-            case "info":
-                f.objStats(obj)
-            case "status":
-                f.slaveStats(j)
-                f.typeTx("Aqui você pode ver todas a informaçoes seu pesonagem. Escolha outra opção\n")
-        if choose != "info" and choose != "status" and obj.stats["Vida"] > 0:
-            obj.atack(j)
-            f.typeTx("no turno do inimigo, ele atacará e reduzira o seu HP. ")
-            time.sleep(1)
-            f.typeTx("Você pode ver seus status digitando o comando --> status\n")
-        if obj.stats["Vida"] < 0:
-            f.typeTx("Quando o HP do inimigo chega a zero, você vence.\n")
-            f.typeTx("Você Venceu!!!!\n")
-        elif j.stats["Vida"] < 0:
-            f.typeTx("Voce Morreu")
+     
 f.clear()
 if DEBUG == False:
     while gameLoopMain == True:
@@ -366,7 +261,7 @@ else:
 
     j.stats["Damage"] += i.stats["ATK"]
 
-    j.addItems(idd.battleItems["Elixir"])
+    f.batlleEvent(2,ed,e,j)
 
 
 
