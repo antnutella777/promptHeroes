@@ -67,6 +67,12 @@ class Jogador:
                 for c in range(len(self.inventario[l])):
                     if self.inventario is None:
                         self.inventario[l][c] = item
+    def listarItens(self):
+        print("=== ITENS NO INVENTÁRIO ===")
+
+        for linha in self.inventario:
+            for item in linha:
+                print(f"- {item.prop['Nome']}")
 
 class Enemy:
     def __init__(self):
@@ -98,7 +104,6 @@ class Enemy:
         obj.stats["Vida"] -= dano
         f.typeTx(chance)
 
-
 class Items:
     def __init__(self):
         self.prop   = {}
@@ -106,9 +111,13 @@ class Items:
 
         self.prop   ["Nome"]    = None
         self.prop   ["Tipo"]    = None
-        self.prop   ["Corfirm"] = None
+        self.prop   ["Desc"]    = None
+        self.prop   ["fxTaget"] = None
+        self.prop   ["Preço"]   = None
         self.stats  ["DEF"]     = None
         self.stats  ["MXDEF"]   = None
         self.stats  ["MXATK"]   = None
         self.stats  ["ATK"]     = None
         self.stats  ["LVL"]     = None
+        self.stats  ["Efects"]  = None
+

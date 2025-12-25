@@ -11,43 +11,27 @@ def typeTxTimer(texto,timer):
         time.sleep(timer)
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
-def jStats(obj):
+def jStats(j,i):
     print("     Propiedade do Personagem\n")
-    print("Nome: ",obj.prop["Nome"] )
-    print("Sexo: ",obj.prop["Sexo"] )
+    print("Nome: ",j.prop["Nome"] )
+    print("Sexo: ",j.prop["Sexo"] )
     print("Raça: ",j.prop["Raca"])
     print("     Seus Status\n")
 
     match j.prop["Raca"]:
         case "Human":
 
-            j.stats["MXVida"] = 100
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 60
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
-
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
-
+            print
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Elf":
-            j.stats["MXVida"] = 80
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 120
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
 
             print("Level: {}".format(j.stats["Nivel"]) )
         case "Giant":
-            j.stats["MXVida"] = 180
-            j.stats["Vida"] = j.stats["MXVida"]
-            j.stats["MXMana"] = 20
-            j.stats["Mana"] = j.stats["MXMana"]
-            j.stats["Nivel"]  = 0
 
             print("Vida: {}".format(j.stats["Vida"]) + "/", j.stats["MXVida"])
             print("Mana: {}".format(j.stats["Mana"]) + "/", j.stats["MXMana"])
@@ -57,15 +41,8 @@ def jStats(obj):
     match j.items["Arma"]:
             case "Espada":
 
-                i.prop["Nome"] = "Espada do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 15
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
-
                 print(f" ATK:  {i.stats["ATK"]}                                   ||          ")
-                print(f" DEF:  0                                   ||||         ")
+                print(f"                                           ||||         ")
                 print(f" LVL:  {i.stats["LVL"]}                                   ||||         ")
                 print("                                           ||||         ")
                 print(f" Nome: {i.prop["Nome"]}                     ||||         ")
@@ -77,15 +54,8 @@ def jStats(obj):
                 print("                                           ====         ")
             case "Arco":
 
-                i.prop["Nome"] = "Arco do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 5
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
-
                 print(f" ATK: {i.stats["ATK"]}                                        (         ")
-                print(f" DEF: {i.stats["DEF"]}                                    ((         ")
+                print(f"                                                          ((         ")
                 print(f" LVL: {i.stats["LVL"]}                                      (((         ")
                 print("                                            ((((         ")
                 print(f" Nome: {i.prop["Nome"]}                        ||  \        ")
@@ -99,15 +69,8 @@ def jStats(obj):
                 print("                                               (          ")
             case "Cajado":
 
-                i.prop["Nome"] = "Cajado do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 10
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
-
                 print(f' ATK: {i.stats["ATK"]}                               ◎◎          ')
-                print(f' DEF: {i.stats["DEF"]}                             ||          ')
+                print(f'                                                   ||          ')
                 print(f' LVL: {i.stats["LVL"]}                                ||          ')
                 print('                                   |---◎◎---|      ')
                 print(f' Nome: {i.prop["Nome"]}                 ||          ')
@@ -119,15 +82,8 @@ def jStats(obj):
                 print('                                     |====|        ')
                 print('                                    |======|       ')
             case "Lança":
-
-                i.prop["Nome"] = "Cajado do Heroi"
-                i.prop["Tipo"] = j.items["Arma"]
-
-                i.stats["MXATK"] = 20
-                i.stats["ATK"]   = i.stats["MXATK"]
-                i.stats["LVL"]= 1
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
-                print(f" DEF: {i.stats["DEF"]}                              /**\     ")
+                print(f"                                                    /**\     ")
                 print(f" LVL: {i.stats["LVL"]}                                  ||      ")
                 print("                                         ||      ")
                 print(f" Nome: {i.prop["Nome"]}                   ||      ")
@@ -138,20 +94,20 @@ def jStats(obj):
                 print("                                       /====\    ")
 def logo():
     print("""
-██████╗ ██████╗  ██████╗ ███╗   ███╗██████╗ ████████╗
-██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝
-██████╔╝██████╔╝██║   ██║██╔████╔██║██████╔╝   ██║
-██╔═══╝ ██╔══██╗██║   ██║██║╚██╔╝██║██╔═══╝    ██║
-██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║        ██║
-╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝
+    ██████╗ ██████╗  ██████╗ ███╗   ███╗██████╗ ████████╗
+    ██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝
+    ██████╔╝██████╔╝██║   ██║██╔████╔██║██████╔╝   ██║
+    ██╔═══╝ ██╔══██╗██║   ██║██║╚██╔╝██║██╔═══╝    ██║
+    ██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║        ██║
+    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝
 
-        ██╗  ██╗███████╗██████╗  ██████╗ ███████╗
-        ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝
-        ███████║█████╗  ██████╔╝██║   ██║███████╗
-        ██╔══██║██╔══╝  ██╔══██╗██║   ██║╚════██║
-        ██║  ██║███████╗██║  ██║╚██████╔╝███████║
-        ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
-    """)
+            ██╗  ██╗███████╗██████╗  ██████╗ ███████╗
+            ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝
+            ███████║█████╗  ██████╔╝██║   ██║███████╗
+            ██╔══██║██╔══╝  ██╔══██╗██║   ██║╚════██║
+            ██║  ██║███████╗██║  ██║╚██████╔╝███████║
+            ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+        """)
     input("> Um RPG forjado no terminal <")
     input(">>> Pressione ENTER para começar <<<")
 def userInput(opt,falseTxt):
@@ -261,7 +217,7 @@ def checkBattleEnd(choose,enemy,player):
     if enemy.stats["Vida"] < 0:
         typeTx("Você Venceu!!!!\n")
     elif player.stats["Vida"] < 0:
-        typeTx("Voce Morreu")
+        typeTx("Voce Morreu\n")
 def batlleEvent(lvl,ed,enemyObj,j):
     enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
     obj = startBattle(enemys,enemyObj,lvl)
@@ -269,6 +225,14 @@ def batlleEvent(lvl,ed,enemyObj,j):
     while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
         choose = playerTurn(obj,j)
         checkBattleEnd(choose,obj,j)     
+def newConsumableItem(obj,itemsData, item):
+    obj.prop   ["Nome"]    = itemsData[item]["Nome"]
+    obj.prop   ["Tipo"]    = itemsData[item]["Tipo"]
+    obj.prop   ["Desc"]    = itemsData[item]["Desc"]
+    obj.prop   ["fxTaget"] = itemsData[item]["fxTarget"]
+    obj.prop   ["Preço"]   = itemsData[item]["Preço"]
+    return obj
+
 
 
 
