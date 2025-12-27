@@ -19,7 +19,7 @@ class Jogador:
         self.prop   ["Nome"]        = None
         self.prop   ["Sexo"]        = None
         self.prop   ["Cofirm"]      = None
-
+       
 
         self.stats  ["Vida"]        = None
         self.stats  ["MXVida"]      = None
@@ -62,18 +62,65 @@ class Jogador:
                 chance = "Critico {} !!\n".format(dano)
         obj.stats["Vida"] -= dano
         f.typeTx(chance)
-    def addItems(self,item):
-            for l in range(len(self.inventario)):
-                for c in range(len(self.inventario[l])):
-                    if self.inventario is None:
-                        self.inventario[l][c] = item
+    def addItems(self,item,amount): 
+        for l in range(len(self.inventario)):  
+            for c in range(len(self.inventario[l])):
+                slot = self.inventario[l][c]
+                if slot is not None and slot.prop["Name"] == item.prop["Name"]:
+                    if not slot.prop["Stack"]:
+                        continue
+                    maxStack = slot.stats["maxStack"]
+                    curent = slot.stats["Amount"]
+
+                    space = maxStack - curent
+
+                    if space <= 0:
+                        continue
+
+                    toAdd = min(space,amount)
+
+                    slot.stats["Amount"] += toAdd
+
+                    amount -= toAdd
+
+                    if amount == 0:
+                        return
+        
+        for l in range(len(self.inventario)):  
+            for c in range(len(self.inventario[l])):
+                if self.inventario[l][c] is None:
+                    newItem = item
+                    maxStack = item.stats["maxStack"]
+
+                    toAdd = min(amount,maxStack)
+                    
+                    newItem.stats["Amount"] = toAdd
+                    self.inventario[l][c] = newItem
+
+                    amount -= toAdd
+
+                    if amount == 0:
+                        return
+
+                             
+                            
+                                
+                      
     def listarItens(self):
         print("=== ITENS NO INVENTÁRIO ===")
 
         for linha in self.inventario:
             for item in linha:
-                print(f"- {item.prop['Nome']}")
-
+                if item != None:
+                    print("-{} ({})".format(item.prop["Name"],item.stats["Amount"]))
+    def playerInfo(self):
+        f.typeTx("======{}======\n".format(self.prop["Nome"]))
+        f.typeTx("Raca: {}\n".format(self.prop["Raca"]))
+        f.typeTx("Nivel {}\n".format(self.stats["Nivel"]))
+        f.typeTx("XP:   {}/{}\n".format(self.stats["XP"],self.stats["mxXP"]))
+        f.typeTx("Vida: {}/{}\n".format(self.stats["Vida"],self.stats["MXVida"]))
+        f.typeTx("Mana: {}/{}\n".format(self.stats["Mana"],self.stats["MXMana"]))
+        f.typeTx("Nivel {}\n")
 class Enemy:
     def __init__(self):
         self.prop   = {}
@@ -109,15 +156,31 @@ class Items:
         self.prop   = {}
         self.stats  = {}
 
-        self.prop   ["Nome"]    = None
-        self.prop   ["Tipo"]    = None
-        self.prop   ["Desc"]    = None
-        self.prop   ["fxTaget"] = None
-        self.prop   ["Preço"]   = None
-        self.stats  ["DEF"]     = None
-        self.stats  ["MXDEF"]   = None
-        self.stats  ["MXATK"]   = None
-        self.stats  ["ATK"]     = None
-        self.stats  ["LVL"]     = None
-        self.stats  ["Efects"]  = None
+        self.prop   ["Name"]            = None
+        self.prop   ["Type"]            = None
+        self.prop   ["Description"]     = None
+        self.prop   ["fxTarget"]        = None
+        self.prop   ["Price"]           = None
+        self.prop   ["Stack"]           = None
+
+        self.stats  ["maxStack"]        = None
+        self.stats  ["Amount"]           = None   
+        self.stats  ["DEF"]             = None
+        self.stats  ["MXDEF"]           = None
+        self.stats  ["MXATK"]           = None
+        self.stats  ["ATK"]             = None
+        self.stats  ["LVL"]             = None
+        self.stats  ["Effects"]         = None
+    def use(self,player):
+        if self.prop["Type"]== "consumable":
+            match self.prop["fxTarget"]:
+                case "Life":
+                    player.stats["Vida"] += self.stats["Effects"]
+                    f.typeTx("Você Recuperou {} de Vida!!!\n".format(self.stats["Effects"]))
+    def itemInfo(self):
+        f.typeTx("=======Infomaçoes do Item=======\n")
+        f.typeTx("Nome: {}\n".format(self.prop["Name"]))
+        f.typeTx("Tipo: {}\n".format(self.prop["Type"]))
+        f.typeTx("Descrição: {}\n".format(self.prop["Description"]))
+        
 

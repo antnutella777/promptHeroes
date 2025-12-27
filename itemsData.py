@@ -1,26 +1,37 @@
 
 
 consumableItems = {
-    "Poçao de Vida Pequeno" : {
-        "Nome"      :"Elixir Pequeno",
-        "Tipo"      : "Cosumivel",
-        "Efects"    : 20,
+    "pocaoVidaP" : {
+        "Name"      :"Pocao de Vida P",
+        "Type"      : "consumable",
+        "Effects"    : 20,
         "fxTarget"  : "Life",
-        "Desc"      : "Restaura 20 de HP do Personagem",
-        "Preço"     : 35,
+        "Description"      : "Restaura 20 de HP do Personagem",
+        "Price"     : 35,
+        "Stack"     : True,
+        "maxStack"   : 5,
+        "Amount"    : 0  
     },
-    "Elixir Medio" : {
-        "Tipo"  : "Cosumivel",
-        "Efects" : 40,
+    "pocaoVidaM" : {
+        "Name"      :"Pocao de Vida M",
+        "Type"  : "consumable",
+        "Effects" : 40,
         "fxTarget" : "Life",
-        "Desc" : "Restaura 20 de HP do Personagem",
-        "Preço": 60
+        "Description" : "Restaura 4O de HP do Personagem",
+        "Price": 60,
+        "Stack"     : True,
+        "maxStack"   : 5, 
+        "Amount"    : 0 
     },
-    "Elixir Grande" : {
-        "Tipo"  : "Cosumivel",
-        "Efects" : 80,
+    "pocaoVidaG" : {
+        "Name"      :"Pocao de Vida G",
+        "Type"  : "consumable",
+        "Effects" : 80,
         "fxTarget" : "Life",
-        "Desc" : "Restaura 20 de HP do Personagem",
-        "Preço": 120
+        "Description" : "Restaura 80 de HP do Personagem",
+        "Price": 120,
+        "Stack"     : True,
+        "maxStack"   : 5,
+        "Amount"    : 0  
     },    
 }

@@ -1,6 +1,7 @@
 
 
 import Funcs,Objects,enemyData,itemsData,history
+from itemsData import consumableItems
 
 j = Objects.Jogador()
 i = Objects.Items()
@@ -24,7 +25,7 @@ if gameStage != "Intro":
         case "Espada":  f.addItemProps(i,"Espada do Heroi",j.items["Arma"],15,1)
         case "Arco":    f.addItemProps(i,"Arco do Heroi",j.items["Arma"],5,1)
         case "Cajado":  f.addItemProps(i,"Cajado do Heroi",j.items["Arma"],10,1)
-        case "Lança":   f.addItemProps(i,"Lança do Heroi",j.items["Arma"],20,1)
+        case "Lanca":   f.addItemProps(i,"Lanca do Heroi",j.items["Arma"],20,1)
 
 confirm = False
 armaLoop = False
@@ -38,8 +39,8 @@ if DEBUG == False:
             case "Intro":
                 h.gameIntro()
                 confirm = False
-                gameStage = "Criação"
-            case "Criação":
+                gameStage = "Criacao"
+            case "Criacao":
                 while confirm == False:
                     confirm = h.createPers(j)    
                 armaLoop = True
@@ -62,13 +63,19 @@ else:
         case "Espada":  f.addItemProps(i,"Espada do Heroi",j.items["Arma"],15,1)
         case "Arco":    f.addItemProps(i,"Arco do Heroi",j.items["Arma"],5,1)
         case "Cajado":  f.addItemProps(i,"Cajado do Heroi",j.items["Arma"],10,1)
-        case "Lança":   f.addItemProps(i,"Lança do Heroi",j.items["Arma"],20,1)
+        case "Lanca":   f.addItemProps(i,"Lanca do Heroi",j.items["Arma"],20,1)
 
     j.stats["Damage"] += i.stats["ATK"]
 
     #f.batlleEvent(2,ed,e,j)
 
-    f.newConsumableItem(i,idd.consumableItems,"Elixir Pequeno")
+    pocao = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
+    pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaP")
 
-    print(i.prop["Nome"])
-
+    j.addItems(pocao,1)
+    j.addItems(pocao,10)
+    j.addItems(pocao2,3)
+   
+    j.listarItens()
+    
+ 

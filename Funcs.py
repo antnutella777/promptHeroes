@@ -1,5 +1,5 @@
 import os,time,math,random
-
+from Objects import *
 def typeTx(texto):
     for letra in texto:
         print(letra, end="", flush=True)
@@ -13,9 +13,9 @@ def clear():
     os.system("cls" if os.name == "nt" else "clear")
 def jStats(j,i):
     print("     Propiedade do Personagem\n")
-    print("Nome: ",j.prop["Nome"] )
+    print("Nome: ",j.prop["Name"] )
     print("Sexo: ",j.prop["Sexo"] )
-    print("Raça: ",j.prop["Raca"])
+    print("Raca: ",j.prop["Raca"])
     print("     Seus Status\n")
 
     match j.prop["Raca"]:
@@ -45,8 +45,8 @@ def jStats(j,i):
                 print(f"                                           ||||         ")
                 print(f" LVL:  {i.stats["LVL"]}                                   ||||         ")
                 print("                                           ||||         ")
-                print(f" Nome: {i.prop["Nome"]}                     ||||         ")
-                print(f" Tipo: {i.prop["Tipo"]}                              ||||         ")
+                print(f" Nome: {i.prop["Name"]}                     ||||         ")
+                print(f" Tipo: {i.prop["Type"]}                              ||||         ")
                 print("                                           ||||         ")
                 print("                                        ==========      ")
                 print("                                            ##          ")
@@ -58,8 +58,8 @@ def jStats(j,i):
                 print(f"                                                          ((         ")
                 print(f" LVL: {i.stats["LVL"]}                                      (((         ")
                 print("                                            ((((         ")
-                print(f" Nome: {i.prop["Nome"]}                        ||  \        ")
-                print(f" Tipo: {i.prop["Tipo"]}                                 ||   \       ")
+                print(f" Nome: {i.prop["Name"]}                        ||  \        ")
+                print(f" Tipo: {i.prop["Type"]}                                 ||   \       ")
                 print("                                            ||    >      ")
                 print("                                            ||   /       ")
                 print("                                            ||  /        ")
@@ -73,20 +73,20 @@ def jStats(j,i):
                 print(f'                                                   ||          ')
                 print(f' LVL: {i.stats["LVL"]}                                ||          ')
                 print('                                   |---◎◎---|      ')
-                print(f' Nome: {i.prop["Nome"]}                 ||          ')
-                print(f' Tipo: {i.prop["Tipo"]}                          ||          ')
+                print(f' Nome: {i.prop["Name"]}                 ||          ')
+                print(f' Tipo: {i.prop["Type"]}                          ||          ')
                 print('                                       ||          ')
                 print('                                       ||          ')
                 print('                                       ||          ')
                 print('                                       ||          ')
                 print('                                     |====|        ')
                 print('                                    |======|       ')
-            case "Lança":
+            case "Lanca":
                 print(f" ATK: {i.stats["ATK"]}                                 /\      ")
                 print(f"                                                    /**\     ")
                 print(f" LVL: {i.stats["LVL"]}                                  ||      ")
                 print("                                         ||      ")
-                print(f" Nome: {i.prop["Nome"]}                   ||      ")
+                print(f" Nome: {i.prop["Name"]}                   ||      ")
                 print(f" Tipo: {j.items["Arma"]}                             ||      ")
                 print("                                         ||      ")
                 print("                                         ||      ")
@@ -109,7 +109,7 @@ def logo():
             ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
         """)
     input("> Um RPG forjado no terminal <")
-    input(">>> Pressione ENTER para começar <<<")
+    input(">>> Pressione ENTER para comecar <<<")
 def userInput(opt,falseTxt):
     loop = False
     while loop == False:
@@ -121,8 +121,8 @@ def userInput(opt,falseTxt):
             typeTx(falseTxt + "\n")
     return var
 def addItemProps(obj,nome,tipo,maxAtk,lvl):
-    obj.prop["Nome"] = nome
-    obj.prop["Tipo"] = tipo
+    obj.prop["Name"] = nome
+    obj.prop["Type"] = tipo
 
     obj.stats["MXATK"] = maxAtk
     obj.stats["ATK"]   = obj.stats["MXATK"]
@@ -140,8 +140,8 @@ def fakeLoad(timer,txt):
         print( txt + "{}%" .format(index))
         time.sleep(timer)
 def newEneny(obj,E,lvl):
-    obj.prop["Nome"]        = E["Nome"]
-    obj.prop["Raça"]        = E["Raça"]
+    obj.prop["Name"]        = E["Name"]
+    obj.prop["Raca"]        = E["Raca"]
     obj.stats["Vida"]       = E["Vida"] * (lvl / 2)
     obj.stats["Damage"]     = math.floor(E["dano"] * (lvl / 2))
     obj.stats  ["critPercent"] = 10 * lvl
@@ -149,9 +149,9 @@ def newEneny(obj,E,lvl):
     return obj
 def objStats(obj):
     clear()
-    typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
-    print("Nome: ",obj.prop["Nome"] )
-    print("Raça: ",obj.prop["Raça"])
+    typeTx("     Propiedade do {} \n".format(obj.prop["Name"]))
+    print("Nome: ",obj.prop["Name"] )
+    print("Raca: ",obj.prop["Raca"])
 
     typeTx("     Seus Status\n")
 
@@ -168,9 +168,9 @@ def addPlayerSlave(obj):
     obj.items["Arma"] = "Espada"
 def slaveStats(obj):
     clear()
-    typeTx("     Propiedade do {} \n".format(obj.prop["Nome"]))
-    print("Nome: ",obj.prop["Nome"] )
-    print("Raça: ",obj.prop["Raca"])
+    typeTx("     Propiedade do {} \n".format(obj.prop["Name"]))
+    print("Nome: ",obj.prop["Name"] )
+    print("Raca: ",obj.prop["Raca"])
 
     typeTx("     Seus Status\n")
 
@@ -190,7 +190,7 @@ def startBattle(enemyList,objEnemy,lvl):
 def playerTurn(enemy,player):   
 
     battleList = ["atacar","defender","item","fujir","info","status","menu"]
-    false = "Opção Invalida"
+    false = "Opcao Invalida"
     
     choose = userInput(battleList,false)
     match choose:
@@ -203,9 +203,9 @@ def playerTurn(enemy,player):
         case "fujir":
             fulgaChance = random.randint(0,100)
             if fulgaChance > 79:
-                typeTx("Você fugiu\n")
+                typeTx("Voce fugiu\n")
             else:
-                typeTx("{} te bloqueou\n".format(enemy.prop["Nome"]))
+                typeTx("{} te bloqueou\n".format(enemy.prop["Name"]))
         case "info":
             objStats(enemy)
         case "status":
@@ -215,25 +215,24 @@ def checkBattleEnd(choose,enemy,player):
     if choose != "info" and choose != "status" and enemy.stats["Vida"] > 0:
             enemy.atack(player)
     if enemy.stats["Vida"] < 0:
-        typeTx("Você Venceu!!!!\n")
+        typeTx("Voce Venceu!!!!\n")
     elif player.stats["Vida"] < 0:
         typeTx("Voce Morreu\n")
 def batlleEvent(lvl,ed,enemyObj,j):
     enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
     obj = startBattle(enemys,enemyObj,lvl)
-    typeTx(" Um {} bloqueou seu caminho!!!".format(obj.prop["Nome"]))
+    typeTx(" Um {} bloqueou seu caminho!!!".format(obj.prop["Name"]))
     while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
         choose = playerTurn(obj,j)
         checkBattleEnd(choose,obj,j)     
-def newConsumableItem(obj,itemsData, item):
-    obj.prop   ["Nome"]    = itemsData[item]["Nome"]
-    obj.prop   ["Tipo"]    = itemsData[item]["Tipo"]
-    obj.prop   ["Desc"]    = itemsData[item]["Desc"]
-    obj.prop   ["fxTaget"] = itemsData[item]["fxTarget"]
-    obj.prop   ["Preço"]   = itemsData[item]["Preço"]
+def newConsumableItem(itemsData, item):
+    obj = Items() 
+    obj.prop   ["Name"]             = itemsData[item]["Name"]
+    obj.prop   ["Type"]             = itemsData[item]["Type"]
+    obj.prop   ["Description"]      = itemsData[item]["Description"]
+    obj.prop   ["fxTarget"]         = itemsData[item]["fxTarget"]
+    obj.prop   ["Price"]            = itemsData[item]["Price"]
+    obj.stats  ["Effects"]          = itemsData[item]["Effects"]
+    obj.prop   ["Stack"]            = itemsData[item]["Stack"]
+    obj.stats  ["maxStack"]         = itemsData[item]["maxStack"] 
     return obj
-
-
-
-
-    
