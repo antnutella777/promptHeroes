@@ -1,17 +1,21 @@
 
 
-import Funcs,Objects,enemyData,itemsData,history
-from itemsData import consumableItems
+import Funcs,Objects,enemyData,itemsData,history,readline
+from itemsData  import consumableItems
+from colorData  import *
+from Objects    import *
 
-j = Objects.Jogador()
-i = Objects.Items()
-e = Objects.Enemy()
-f = Funcs
-h = history
-ed = enemyData
-idd = itemsData
-DEBUG = True
-gameStage = "Intro"
+j           = Jogador()
+i           = Items()
+e           = Enemy()
+f           = Funcs
+h           = history  
+ed          = enemyData
+idd         = itemsData
+DEBUG       = True     
+gameStage   = "Intro"
+
+
 
 #temporario para debug
 if gameStage != "Intro":
@@ -68,14 +72,15 @@ else:
     j.stats["Damage"] += i.stats["ATK"]
 
     #f.batlleEvent(2,ed,e,j)
-
-    pocao = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
-    pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaP")
-
-    j.addItems(pocao,1)
-    j.addItems(pocao,10)
-    j.addItems(pocao2,3)
-   
-    j.listarItens()
     
+    pocao  = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
+    pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
+    
+    
+    
+     
+    j.addItems(pocao,45)
  
+    f.batlleEvent(2,ed,e,j)
+ 
+        

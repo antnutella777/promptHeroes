@@ -12,7 +12,7 @@ f = Funcs
 
 def gameIntro():
 
-    f.typeTx("Ola")
+    f.typeTx("Ola","blue")
     time.sleep(3)
     f.clear()
     f.typeTx("Ja faz muito tempo na verdade")
