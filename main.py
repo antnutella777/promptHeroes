@@ -1,7 +1,7 @@
 
 
 import Funcs,Objects,enemyData,itemsData,history,readline
-from itemsData  import consumableItems
+from itemsData  import consumableItems,equpableItems
 from colorData  import *
 from Objects    import *
 
@@ -12,6 +12,7 @@ f           = Funcs
 h           = history  
 ed          = enemyData
 idd         = itemsData
+edd         = equpableItems
 DEBUG       = True     
 gameStage   = "Intro"
 
@@ -77,10 +78,18 @@ else:
     pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
     
     
+    capacete = f.newEquipableItem(edd,"capaceteComum")
+    peitoral = f.newEquipableItem(edd,"peitoralComum")
+    calça    = f.newEquipableItem(edd,"calçaComum")
+    bota     = f.newEquipableItem(edd,"botasComum")
     
-     
-    j.addItems(pocao,45)
+    capacete.equip(j)
+    peitoral.equip(j)
+    calça.equip(j)
+    bota.equip(j)
+
+    j.addItems(pocao,5)
  
-    f.batlleEvent(2,ed,e,j)
+    f.batlleEvent(1,ed,e,j)
  
         

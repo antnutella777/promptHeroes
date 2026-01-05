@@ -201,12 +201,12 @@ def startBattle(enemyList,objEnemy,lvl):
     return obj
 def playerTurn(enemy,player):   
 
-    battleList = ["atacar","defender","item","fujir","info","status","menu"]
+    battleList = ["atacar","dormir","item","fujir","info","status"]
     false = "Opcao Invalida"
     
     choose = userInput(battleList,false)
     match choose:
-        case "atacar":
+        case "dormir":
             player.atack(enemy)
         case "defender":
             typeTx("Estou Defendendo\n","yelow")
@@ -285,13 +285,11 @@ def newEquipableItem(itemsData, item):
     obj = Items() 
     obj.prop   ["Name"]             = itemsData[item]["Name"]
     obj.prop   ["eqTarget"]         = itemsData[item]["eqTarget"]
-    obj.prop   ["DEF"]              = itemsData[item]["Defesa"]
+    obj.stats  ["DEF"]              = itemsData[item]["Defesa"]
     obj.prop   ["Rarity"]           = itemsData[item]["Rarity"]
     obj.prop   ["Type"]             = itemsData[item]["Type"]
     obj.prop   ["Description"]      = itemsData[item]["Description"]
-    obj.prop   ["fxTarget"]         = itemsData[item]["fxTarget"]
     obj.prop   ["Price"]            = itemsData[item]["Price"]
-    obj.stats  ["Effects"]          = itemsData[item]["Effects"]
     obj.prop   ["Stack"]            = itemsData[item]["Stack"]
     obj.stats  ["maxStack"]         = itemsData[item]["maxStack"] 
     return obj

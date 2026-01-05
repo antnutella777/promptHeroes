@@ -120,7 +120,44 @@ class Jogador:
         f.typeTx("Nivel {}\n".format(self.stats["Nivel"]),"cyan")
         f.typeTx("XP:   {}/{}\n".format(self.stats["XP"],self.stats["mxXP"]),"yellow")
         f.typeTx("Vida: {}/{}\n".format(self.stats["Vida"],self.stats["MXVida"]),"green")
-        f.typeTx("Mana: {}/{}\n".format(self.stats["Mana"],self.stats["MXMana"]),"magenta")      
+        f.typeTx("Mana: {}/{}\n\n".format(self.stats["Mana"],self.stats["MXMana"]),"magenta")
+        f.typeTx("Defesa Total: {}\n".format(self.stats["DEF"]),"red")
+        if self.items["Head"] is not None:
+            f.typeTx("{}               DEF: {}\n"
+                .format(
+                    self.items["Head"].prop["Name"],
+                    self.items["Head"].stats["DEF"]),
+                    "red"
+            )
+        if self.items["Chest"] is not None:
+            f.typeTx("{}               DEF: {}\n"
+                .format(
+                    self.items["Chest"].prop["Name"],
+                    self.items["Chest"].stats["DEF"]),
+                    "red"
+            )
+        if self.items["Legs"] is not None:
+            f.typeTx("{}                  DEF: {}\n"
+                .format(
+                    self.items["Legs"].prop["Name"],
+                    self.items["Legs"].stats["DEF"]),
+                    "red"
+            ) 
+        if self.items["Foots"] is not None:
+            f.typeTx("{}                  DEF: {}\n"
+                .format(
+                    self.items["Foots"].prop["Name"],
+                    self.items["Foots"].stats["DEF"]),
+                    "red"
+            )        
+    def quitInfo(self):
+        f.typeTx("==========={}==========\n".format(self.prop["Nome"]),"red")
+        f.typeTx("Raca: {}\n".format(self.prop["Raca"]),"cyan")
+        f.typeTx("Nivel {}\n".format(self.stats["Nivel"]),"cyan")
+        f.typeTx("XP:   {}/{}\n".format(self.stats["XP"],self.stats["mxXP"]),"yellow")
+        f.typeTx("Vida: {}/{}\n".format(self.stats["Vida"],self.stats["MXVida"]),"green")
+        f.typeTx("Mana: {}/{}\n\n".format(self.stats["Mana"],self.stats["MXMana"]),"magenta")
+        f.typeTx("Defesa Total: {}\n".format(self.stats["DEF"]),"red")                   
 class Enemy:
     def __init__(self):
         self.prop   = {}
@@ -141,15 +178,28 @@ class Enemy:
         match critChance:
             case x if x <=20:
                 dano = 0
-                chance = self.prop["Name"]  + " Errou\n"
+                chance = self.prop["Name"]  + " Errou"
             case x if x <= 84:
                 dano = self.stats["Damage"]
-                chance = self.prop["Name"] + " tirou {} do seu HP !!\n".format(dano)
+                chance = self.prop["Name"] + " tirou {} do seu HP".format(dano)
             case _:
-                dano = self.stats["Damage"]  + (self.stats["Damage"] * (self.stats  ["critPercent"] / 100))
-                chance = self.prop["Name"] + " te deu um critico {} !!\n".format(dano)
-        obj.stats["Vida"] -= dano
-        f.typeTx(chance,"red")
+                dano = self.stats["Damage"]  + (self.stats["Damage"] * (self.stats  ["critPercent"] / 100)) 
+                chance = self.prop["Name"] + " te deu um critico {}".format(dano)
+        if obj.stats["DEF"] != None:
+            danoAtual = dano - obj.stats["DEF"]
+            if danoAtual < 0:
+                danoAtual = 0 
+            
+            obj.stats["Vida"] -= danoAtual
+            if critChance <= 20:
+                f.typeTx(chance +" !!\n","red") 
+            else:    
+                f.typeTx(chance + " -{} de defesa!!!".format(obj.stats["DEF"]),"red")    
+        else:
+            obj.stats["Vida"] -= dano
+            f.typeTx(chance +" !!\n","red") 
+        
+        
     def info(self):
         f.typeTx("======{}======\n".format(self.prop["Name"]),"red")
         f.typeTx("Raca:  {}\n".format(self.prop["Raca"]),"cyan")
@@ -205,8 +255,8 @@ class Items:
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Head"]  = self
-                    player.stats["DEF"] += self.stats["DEF"]    
-
+                     
+                    player.stats["DEF"] += self.stats["DEF"] 
                 case "Chest":
                     if player.items["Chest"] is None:
                         player.items["Chest"]  = self
@@ -215,12 +265,28 @@ class Items:
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Chest"]  = self
-                    player.stats["DEF"] += self.stats["DEF"] 
+                   
+                    player.stats["DEF"] += self.stats["DEF"]  
                 case "Legs":
-                    player.items["Legs"] = self 
-                    player.items["DEF"]   += self.stats["DEF"]  
+                    if player.items["Legs"] is None:
+                        player.items["Legs"]  = self
+                    else:
+                        itemAtual = player.items["Legs"]
+                        player.stats["DEF"] -= itemAtual.stats["DEF"]
+                        player.addItems(itemAtual,1)
+                        player.items["Legs"]  = self
+                    
+                    player.stats["DEF"] += self.stats["DEF"]  
                 case "Foots":
-
+                    if player.items["Foots"] is None:
+                        player.items["Foots"]  = self
+                    else:
+                        itemAtual = player.items["Foots"]
+                        player.stats["DEF"] -= itemAtual.stats["DEF"]
+                        player.addItems(itemAtual,1)
+                        player.items["Foots"]  = self
+                   
+                    player.stats["DEF"] += self.stats["DEF"]  
 
 
     def info(self):
