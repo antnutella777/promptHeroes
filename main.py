@@ -1,6 +1,6 @@
 
 
-import Funcs,Objects,enemyData,itemsData,history,readline
+import Funcs,Objects,enemyData,itemsData,history
 from itemsData  import consumableItems
 from colorData  import *
 from Objects    import *
