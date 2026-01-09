@@ -250,43 +250,49 @@ class Items:
                 case "Head":
                     if player.items["Head"] is None:
                         player.items["Head"]  = self
+                        player.stats["DEF"] = self.stats["DEF"]  
+
                     else:
                         itemAtual = player.items["Head"]
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Head"]  = self
                      
-                    player.stats["DEF"] += self.stats["DEF"] 
+                        player.stats["DEF"] += self.stats["DEF"] 
                 case "Chest":
                     if player.items["Chest"] is None:
                         player.items["Chest"]  = self
+                        player.stats["DEF"] = self.stats["DEF"]  
+
                     else:
                         itemAtual = player.items["Chest"]
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Chest"]  = self
                    
-                    player.stats["DEF"] += self.stats["DEF"]  
+                        player.stats["DEF"] += self.stats["DEF"]  
                 case "Legs":
                     if player.items["Legs"] is None:
                         player.items["Legs"]  = self
+                        player.stats["DEF"] = self.stats["DEF"]  
                     else:
                         itemAtual = player.items["Legs"]
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Legs"]  = self
                     
-                    player.stats["DEF"] += self.stats["DEF"]  
+                        player.stats["DEF"] += self.stats["DEF"]  
                 case "Foots":
                     if player.items["Foots"] is None:
                         player.items["Foots"]  = self
+                        player.stats["DEF"] = self.stats["DEF"]  
                     else:
                         itemAtual = player.items["Foots"]
                         player.stats["DEF"] -= itemAtual.stats["DEF"]
                         player.addItems(itemAtual,1)
                         player.items["Foots"]  = self
                    
-                    player.stats["DEF"] += self.stats["DEF"]  
+                        player.stats["DEF"] += self.stats["DEF"]  
 
 
     def info(self):
