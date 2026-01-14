@@ -8,12 +8,12 @@ def typeTx(texto,color):
     if "brigth_" in color:
         for letra in texto:
             print(bright_colors[color],letra,sep="", end="", flush=True )
-            time.sleep(0.05)
+            time.sleep(0.02)
         texto += "\n" + main_colors["reset"]
     else:    
         for letra in texto:
             print(main_colors[color],letra,sep="", end="", flush=True )
-            time.sleep(0.05)
+            time.sleep(0.02)
         texto += "\n" + main_colors["reset"]
 def typeTxTimer(texto,timer):
     for letra in texto:
@@ -145,17 +145,21 @@ def addPlayerProps(obj,maxVida,maxMana,maxDamage,lvl):
     obj.stats     ["Nivel"]       = lvl
     obj.stats     ["MXDamage"]    = maxDamage
     obj.stats     ["Damage"]      = obj.stats  ["MXDamage"]
+    obj.stats     ["DEF"]         = 0
 def fakeLoad(timer,txt):
     for index in range(101):
-        print( txt + "{}%" .format(index))
+        clear()
+        print(main_colors["red"] + txt + "{}%" .format(index))
         time.sleep(timer)
 def newEneny(obj,E,lvl):
     obj.prop    ["Name"]        = E["Nome"]
     obj.prop    ["Raca"]        = E["Raça"]
+    obj.prop    ["xpGain"]      = E["xpGain"] * (lvl / 2)
     obj.stats   ["Vida"]        = E["Vida"] * (lvl / 2)
     obj.stats   ["Damage"]      = math.floor(E["dano"] * (lvl / 2))
     obj.stats   ["critPercent"] = 10 * lvl
     obj.stats   ["LVL"]         = lvl
+    
     return obj
 def objStats(obj):
     clear()
@@ -177,7 +181,13 @@ def addPlayerSlave(obj):
     obj.stats["Nivel"] = 1
     obj.stats["XP"] = 0
     obj.stats["mxXP"] = 100
-    obj.items["Arma"] = "Espada"
+
+    match obj.prop["Raca"]:
+        case "Human": f.addPlayerProps(obj,100,60,1,1)
+        case "Elf":   f.addPlayerProps(obj,80,120,1,1)
+        case "Giant": f.addPlayerProps(obj,180,20,1,1)
+
+    
 def slaveStats(obj):
     clear()
     typeTx("     Propiedade do {} \n".format(obj.prop["Name"]),"red")
@@ -199,17 +209,16 @@ def startBattle(enemyList,objEnemy,lvl):
 
     clear()
     return obj
-def playerTurn(enemy,player):   
+def playerTurn(enemy,player):       
 
-    battleList = ["atacar","dormir","item","fujir","info","status"]
+    battleList = ["atacar","dormir","item","fujir","info","status","Qstatus"]
     false = "Opcao Invalida"
     
     choose = userInput(battleList,false)
     match choose:
-        case "dormir":
+        case "atacar":
             player.atack(enemy)
-        case "defender":
-            typeTx("Estou Defendendo\n","yelow")
+        
         case "item":
             f.clear()
             itemList = player.listarItens()
@@ -218,32 +227,40 @@ def playerTurn(enemy,player):
             if "use" in comando: 
                 
                 for l in range(len(player.inventario)):
-                 
                     for c in range(len(player.inventario[l])):
                    
                         if player.inventario[l][c].prop["Name"] in comando: 
-                            player.inventario[l][c].use(player,l,c)
-                            return choose
+                            if player.inventario[l][c].prop["Type"] == "consumable":
+                                player.inventario[l][c].use(player,l,c)
+                                return choose
+                            else:
+                                f.typeTx("Item não consumivel","red")
                         else:
-                            typeTx("Item não exite")
+                            typeTx("Item não exite","red")
             elif "equip" in comando:
                 for l in range(len(player.inventario)):
                     for c in range(len(player.inventario[l])):
                         if player.inventario[l][c].prop["Name"] in comando: 
-                            player.inventario[l][c].equip()
-                            return choose
+                            player.inventario[l][c].equip(player)
+                            print(player.inventario[l][c].prop["Name"])
+                            if player.inventario[l][c].prop["Type"] == "equipable":
+                                player.inventario[l][c] = None
+                                return choose
+                            else:
+                                f.typeTx("Item não equipavel","red")
+                            return choose    
                         else:
-                            typeTx("Item não exite")
+                            print(player.inventario[l][c].prop["Name"])
+                            f.typeTx("Item não existe","red")
             elif "info" in comando:
                 for item in range(len(itemList)):
                     if itemList[item].prop["Name"] in comando: 
                         itemList[item].info() 
                         return choose 
-                    else:
-                        typeTx("Item não exite")
             elif "exit" in comando:
                 return "status"            
         case "fujir":
+
             fulgaChance = random.randint(0,100)
             if fulgaChance > 79:
                 typeTx("Voce fugiu\n","yellow")
@@ -255,19 +272,25 @@ def playerTurn(enemy,player):
         case "status":
             f.clear()
             player.info()
+        case "Qstatus":
+            f.clear()
+            player.quitInfo()    
     return choose
 def checkBattleEnd(choose,enemy,player):
     if choose != "info" and choose != "status" and choose != "item" and enemy.stats["Vida"] > 0:
             enemy.atack(player)
     if enemy.stats["Vida"] <= 0:
         typeTx("Voce Venceu!!!!\n","blue")
+        checkLevelUp(player,enemy.prop["xpGain"])
     elif player.stats["Vida"] < 0:
         typeTx("Voce Morreu\n","red")
 def batlleEvent(lvl,ed,enemyObj,j):
+    
     enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
     obj = startBattle(enemys,enemyObj,lvl)
     typeTx("{} bloqueou seu caminho!!!".format(obj.prop["Name"]),"yellow")
     while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
+        
         choose = playerTurn(obj,j)
         checkBattleEnd(choose,obj,j)     
 def newConsumableItem(itemsData, item):
@@ -285,12 +308,60 @@ def newEquipableItem(itemsData, item):
     obj = Items() 
     obj.prop   ["Name"]             = itemsData[item]["Name"]
     obj.prop   ["eqTarget"]         = itemsData[item]["eqTarget"]
-    obj.stats  ["DEF"]              = itemsData[item]["Defesa"]
     obj.prop   ["Rarity"]           = itemsData[item]["Rarity"]
     obj.prop   ["Type"]             = itemsData[item]["Type"]
     obj.prop   ["Description"]      = itemsData[item]["Description"]
     obj.prop   ["Price"]            = itemsData[item]["Price"]
     obj.prop   ["Stack"]            = itemsData[item]["Stack"]
-    obj.stats  ["maxStack"]         = itemsData[item]["maxStack"] 
+    obj.prop   ["fxTarget"]         = itemsData[item]["fxTarget"]
+    obj.stats  ["maxStack"]         = itemsData[item]["maxStack"]
+    obj.stats  ["Effects"]          = itemsData[item]["Effects"]
     return obj
+def checkLevelUp(player,xp):
+    player.stats["XP"] += xp
+    typeTx("Voce ganhou {} de XP!!!\n".format(xp),"green")
+    
+    if player.stats["XP"] >= player.stats["mxXP"]:
+        typeTx("Voce subiu de nivel!!!\n","yellow")
+        player.stats["Nivel"] += 1
+        player.stats["mxXP"] *= 1.4
+        player.stats["XP"] = 0
+        
+        lvl = player.stats["Nivel"]
 
+        match player.prop["Raca"]:
+            case "Human":
+                
+                player.stats  ["MXVida"]      += int(10 * (lvl))
+                player.stats  ["Vida"]        = player.stats  ["MXVida"]
+                player.stats  ["MXMana"]      += int(20 * (lvl))
+                player.stats  ["Mana"]        = player.stats  ["MXMana"] 
+                player.stats  ["Damage"]      += 3
+                player.stats  ["critPercent"] += 5
+def newLoot(itemList,player):
+    clear()
+    menuLoot = ["equipar", "guardar","Deletar"]
+    for item in range(len(itemList)):
+        clear()
+        print("=== Recompensas ===")
+        itemList[item].info()
+        match userInput(menuLoot,"Opção invalida"):
+            case "equipar":
+                itemList[item].equip(player)
+            case "guardar":
+                player.addItems(itemList[item].clone(),1) 
+            case "deletar":
+                continue        
+def newLootList(intensData,tipo = None, raridade = None):
+    
+    loot = []
+    
+    for item in intensData.values():
+       
+        
+        if tipo and item.get("Type") != tipo:
+            continue
+        if raridade and item.get("Rarity") != raridade:    
+            continue
+        loot.append(item)
+    return loot

@@ -22,15 +22,6 @@ gameStage   = "Intro"
 if gameStage != "Intro":
     f.addPlayerSlave(j)
 
-    match j.prop["Raca"]:
-        case "Human": f.addPlayerProps(j,100,60,1,1)
-        case "Elf":   f.addPlayerProps(j,80,120,1,1)
-        case "Giant": f.addPlayerProps(j,180,20,1,1)
-    match j.items["Arma"]:
-        case "Espada":  f.addItemProps(i,"Espada do Heroi",j.items["Arma"],15,1)
-        case "Arco":    f.addItemProps(i,"Arco do Heroi",j.items["Arma"],5,1)
-        case "Cajado":  f.addItemProps(i,"Cajado do Heroi",j.items["Arma"],10,1)
-        case "Lanca":   f.addItemProps(i,"Lanca do Heroi",j.items["Arma"],20,1)
 
 confirm = False
 armaLoop = False
@@ -60,36 +51,29 @@ else:
 
     f.addPlayerSlave(j)
 
-    match j.prop["Raca"]:
-        case "Human": f.addPlayerProps(j,100,60,1,1)
-        case "Elf":   f.addPlayerProps(j,80,120,1,1)
-        case "Giant": f.addPlayerProps(j,180,20,1,1)
-    match j.items["Arma"]:
-        case "Espada":  f.addItemProps(i,"Espada do Heroi",j.items["Arma"],15,1)
-        case "Arco":    f.addItemProps(i,"Arco do Heroi",j.items["Arma"],5,1)
-        case "Cajado":  f.addItemProps(i,"Cajado do Heroi",j.items["Arma"],10,1)
-        case "Lanca":   f.addItemProps(i,"Lanca do Heroi",j.items["Arma"],20,1)
-
-    j.stats["Damage"] += i.stats["ATK"]
-
-    #f.batlleEvent(2,ed,e,j)
     
     pocao  = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
     pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
     
+    espada = f.newConsumableItem(edd,"espadaComum")
     
     capacete = f.newEquipableItem(edd,"capaceteComum")
     peitoral = f.newEquipableItem(edd,"peitoralComum")
     calça    = f.newEquipableItem(edd,"calçaComum")
     bota     = f.newEquipableItem(edd,"botasComum")
     
+    espada.equip(j)
+
     capacete.equip(j)
     peitoral.equip(j)
     calça.equip(j)
     bota.equip(j)
 
-    j.addItems(pocao,5)
- 
-    f.batlleEvent(1,ed,e,j)
+    j.addItems(pocao,10)
+
+    while j.stats["Vida"] > 0:
+        
+        f.batlleEvent(j.stats["Nivel"],ed,e,j)
+
  
         
