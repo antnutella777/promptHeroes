@@ -9,7 +9,9 @@ main_colors = {
     "magenta": "\033[35m",
     "cyan": "\033[36m",
     "white": "\033[37m",
+    "orange" : "\033[38;5;208m",
     "reset": "\033[0m"
+    
 }
 bright_colors = {
     "bright_black": "\033[90m",
@@ -20,4 +22,5 @@ bright_colors = {
     "bright_magenta": "\033[95m",
     "bright_cyan": "\033[96m",
     "bright_white": "\033[97m",
+    
 }
