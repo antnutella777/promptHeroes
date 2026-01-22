@@ -1,4 +1,4 @@
-import os,time,math,random
+import os,time,math,random,readline
 from Objects import *
 from colorData import *
 historyInput = []
