@@ -52,15 +52,13 @@ else:
     f.addPlayerSlave(j)
 
     
-    pocao  = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
-    pocao2 = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
-    
-    espada = f.newConsumableItem(edd,"espadaComum")
-    
-    capacete = f.newEquipableItem(edd,"capaceteComum")
-    peitoral = f.newEquipableItem(edd,"peitoralComum")
-    calça    = f.newEquipableItem(edd,"calçaComum")
-    bota     = f.newEquipableItem(edd,"botasComum")
+    pocao       = f.newConsumableItem(idd.consumableItems,"pocaoVidaM")
+    pocao2      = f.newConsumableItem(idd.consumableItems,"pocaoVidaM") 
+    espada      =  f.newEquipableItem(edd,"espadaComum")
+    capacete    = f.newEquipableItem(edd,"capaceteComum")
+    peitoral    = f.newEquipableItem(edd,"peitoralComum")
+    calça       = f.newEquipableItem(edd,"calçaComum")
+    bota        = f.newEquipableItem(edd,"botasComum")
     
     espada.equip(j)
 

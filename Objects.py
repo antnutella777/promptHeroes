@@ -231,7 +231,6 @@ class Items:
         self.prop   ["Stack"]           = None
         self.prop   ["Rarity"]          = None
 
-
         self.stats  ["maxStack"]        = None
         self.stats  ["Amount"]          = None   
         self.stats  ["LVL"]             = None
@@ -267,7 +266,8 @@ class Items:
                 player.addItems(itemAtual,1)
                 player.items[self.prop["eqTarget"]]  = self  
             
-            player.stats[self.prop["fxTarget"]] += self.stats["Effects"] 
+        
+            player.stats[self.prop["fxTarget"]] += self.stats["Effects"]      
 
 
     def info(self):

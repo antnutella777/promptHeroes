@@ -185,9 +185,7 @@ def addPlayerSlave(obj):
     match obj.prop["Raca"]:
         case "Human": f.addPlayerProps(obj,100,60,1,1)
         case "Elf":   f.addPlayerProps(obj,80,120,1,1)
-        case "Giant": f.addPlayerProps(obj,180,20,1,1)
-
-    
+        case "Giant": f.addPlayerProps(obj,180,20,1,1)    
 def slaveStats(obj):
     clear()
     typeTx("     Propiedade do {} \n".format(obj.prop["Name"]),"red")
@@ -330,14 +328,9 @@ def checkLevelUp(player,xp):
         lvl = player.stats["Nivel"]
 
         match player.prop["Raca"]:
-            case "Human":
-                
-                player.stats  ["MXVida"]      += int(10 * (lvl))
-                player.stats  ["Vida"]        = player.stats  ["MXVida"]
-                player.stats  ["MXMana"]      += int(20 * (lvl))
-                player.stats  ["Mana"]        = player.stats  ["MXMana"] 
-                player.stats  ["Damage"]      += 3
-                player.stats  ["critPercent"] += 5
+            case "Human":   addLevelProps(player,10,20,4,5,lvl)
+            case "Giant":   addLevelProps(player,20,5,8,20,lvl)
+            case "Elf"  :   addLevelProps(player,5,25,2,3,lvl)                  
 def newLoot(itemList,player):
     clear()
     menuLoot = ["equipar", "guardar","Deletar"]
@@ -365,3 +358,11 @@ def newLootList(intensData,tipo = None, raridade = None):
             continue
         loot.append(item)
     return loot
+def addLevelProps(player,adcVida,adcMana,adcDamage,adcCritPercent,lvl):
+    
+    player.stats  ["MXVida"]      += int(adcVida * (lvl))
+    player.stats  ["Vida"]        = player.stats  ["MXVida"]
+    player.stats  ["MXMana"]      += int(adcMana * (lvl))
+    player.stats  ["Mana"]        = player.stats  ["MXMana"] 
+    player.stats  ["Damage"]      += adcDamage
+    player.stats  ["critPercent"] += adcCritPercent
