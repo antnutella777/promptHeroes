@@ -123,11 +123,11 @@ class Jogador:
         f.typeTx("Mana: {}/{}\n\n".format(self.stats["Mana"],self.stats["MXMana"]),"magenta")
         f.typeTx("Defesa Total: {}\n".format(self.stats["DEF"]),"red")
         
-        if self.items["Hands"] is not None:
+        if self.items["Hand"] is not None:
             f.typeTx("{}                  DEF: {}\n"
                 .format(
-                    self.items["Hands"].prop["Name"],
-                    self.items["Hands"].stats["Effects"]),
+                    self.items["Hand"].prop["Name"],
+                    self.items["Hand"].stats["Effects"]),
                     "red"
             )  
         
