@@ -15,31 +15,31 @@ def gameIntro():
     f.typeTx("Ola","blue")
     time.sleep(3)
     f.clear()
-    f.typeTx("Ja faz muito tempo na verdade")
+    f.typeTx("Ja faz muito tempo na verdade","red")
     time.sleep(2)
     f.clear()
-    f.typeTx("Voce e novo por aqui")
+    f.typeTx("Voce e novo por aqui","red")
 
     resp = input("{}>>> ".format(confirma))
     if resp == "Sim":
         f.clear()
-        f.typeTx("Entendi\n")
+        f.typeTx("Entendi\n","red")
         time.sleep(1)
 
     elif resp == "Nao":
 
-        f.typeTx("Entao ja sabe como o que esta por vir")
+        f.typeTx("Entao ja sabe como o que esta por vir","red")
         time.sleep(1)
         sys.exit()
     else:
-        f.typeTx("Acho que nao tem nimguem aqui")
+        f.typeTx("Acho que nao tem nimguem aqui","red")
         sys.exit()
 
     f.clear()
-    f.typeTx("Bom, era pra ter algo a mais por aqui\n")
+    f.typeTx("Bom, era pra ter algo a mais por aqui\n","red")
     time.sleep(1)
     f.clear()
-    f.typeTx("Mais acho que podemos comecar do mesmo jeito")
+    f.typeTx("Mais acho que podemos comecar do mesmo jeito","red")
     input("[Enter]>>> ")
     f.clear()
 

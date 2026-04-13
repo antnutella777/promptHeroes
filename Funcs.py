@@ -111,12 +111,12 @@ def logo():
     ██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║        ██║
     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝
 
-            ██╗  ██╗███████╗██████╗  ██████╗ ███████╗
-            ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝
-            ███████║█████╗  ██████╔╝██║   ██║███████╗
-            ██╔══██║██╔══╝  ██╔══██╗██║   ██║╚════██║
-            ██║  ██║███████╗██║  ██║╚██████╔╝███████║
-            ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+            ██╗  ██╗███████╗██████╗  ██████  ███████ ███████╗
+            ██║  ██║██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔════╝
+            ███████║█████╗  ██████╔╝██║   ██║█████╗  ███████╗
+            ██╔══██║██╔══╝  ██╔══██╗██║   ██║██╔══╝  ╚════██║
+            ██║  ██║███████╗██║  ██║╚██████╔╝███████╗███████║
+            ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
         """)
     input("> Um RPG forjado no terminal <")
     input(">>> Pressione ENTER para comecar <<<")
@@ -287,8 +287,7 @@ def batlleEvent(lvl,ed,enemyObj,j):
     enemys = [ed.Batedor,ed.Gigante,ed.Guarda]
     obj = startBattle(enemys,enemyObj,lvl)
     typeTx("{} bloqueou seu caminho!!!".format(obj.prop["Name"]),"yellow")
-    while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :
-        
+    while (j.stats["Vida"] > 0 and obj.stats["Vida"] > 0) :  
         choose = playerTurn(obj,j)
         checkBattleEnd(choose,obj,j)     
 def newConsumableItem(itemsData, item):

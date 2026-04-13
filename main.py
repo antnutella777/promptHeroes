@@ -13,7 +13,7 @@ h           = history
 ed          = enemyData
 idd         = itemsData
 edd         = equpableItems
-DEBUG       = True     
+DEBUG       = False     
 gameStage   = "Intro"
 
 
